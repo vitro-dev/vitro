@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "alefragnani.bookmarks",
+        "njpwerner.autodocstring",
+        "tamasfe.even-better-toml",
+        "ms-python.mypy-type-checker",
+        "ms-python.python",
+        "charliermarsh.ruff"
+    ]
+}

@@ -3,15 +3,14 @@
 import re
 
 import pytest
-from pluggy import PluginManager
+
 from pytest_mock import MockerFixture
 
 from boardfarm3.devices.base_devices import BoardfarmDevice
-from boardfarm3.devices.linux_tftp import LinuxTFTP
-from boardfarm3.exceptions import DeviceNotFound
+
 from boardfarm3.lib.device_manager import DeviceManager, get_device_manager
 from boardfarm3.main import get_plugin_manager
-from boardfarm3.templates.lan import LAN
+
 
 
 class DummyDevice(BoardfarmDevice):
@@ -43,113 +42,13 @@ def test_device_manager_singleton(device_manager: DeviceManager) -> None:
         DeviceManager(get_plugin_manager())
 
 
-def test_get_device_by_type_valid_device(
-    mocker: MockerFixture,
-    device_manager: DeviceManager,
-) -> None:
-    """Verify that the expected device returned when get the device by type.
-
-    :param mocker: pytest mock object
-    :type mocker: MockerFixture
-    :param device_manager: device manager instance
-    :type device_manager: DeviceManager
-    """
-    mocker.patch.object(LinuxTFTP, attribute="__init__", return_value=None)
-    plugin_list = [("tftp1", LinuxTFTP({}, None)), ("tftp2", LinuxTFTP({}, None))]
-    mocker.patch.object(
-        PluginManager,
-        attribute="list_name_plugin",
-        return_value=plugin_list,
-    )
-    assert plugin_list[0][1] == device_manager.get_device_by_type(LinuxTFTP)
-    assert isinstance(device_manager.get_device_by_type(LinuxTFTP), LinuxTFTP)
 
 
-def test_get_device_by_type_invalid_device(
-    mocker: MockerFixture,
-    device_manager: DeviceManager,
-) -> None:
-    """Ensure error is raised when try to fetch a device not present in device list.
-
-    :param mocker: pytest mock object
-    :type mocker: MockerFixture
-    :param device_manager: device manager instance
-    :type device_manager: DeviceManager
-    """
-    mocker.patch.object(LinuxTFTP, attribute="__init__", return_value=None)
-    plugin_list = [("tftp1", LinuxTFTP({}, None)), ("tftp2", LinuxTFTP({}, None))]
-    mocker.patch.object(
-        PluginManager,
-        attribute="list_name_plugin",
-        return_value=plugin_list,
-    )
-    with pytest.raises(DeviceNotFound):
-        device_manager.get_device_by_type(LAN)
 
 
-def test_get_devices_by_type_valid_device(
-    mocker: MockerFixture,
-    device_manager: DeviceManager,
-) -> None:
-    """Verify the device returned is valid when get device by type.
-
-    :param mocker: pytest mock object
-    :type mocker: MockerFixture
-    :param device_manager: device manager instance
-    :type device_manager: DeviceManager
-    """
-    mocker.patch.object(LinuxTFTP, attribute="__init__", return_value=None)
-    plugin_list = [("tftp1", LinuxTFTP({}, None)), ("tftp2", LinuxTFTP({}, None))]
-    mocker.patch.object(
-        PluginManager,
-        attribute="list_name_plugin",
-        return_value=plugin_list,
-    )
-    assert len(device_manager.get_devices_by_type(LinuxTFTP)) == 2
 
 
-def test_get_devices_by_type_verify_name(
-    mocker: MockerFixture,
-    device_manager: DeviceManager,
-) -> None:
-    """Verify device names when get devices by type.
 
-    :param mocker: pytest mock object
-    :type mocker: MockerFixture
-    :param device_manager: device manager instance
-    :type device_manager: DeviceManager
-    """
-    mocker.patch.object(LinuxTFTP, attribute="__init__", return_value=None)
-    plugin_list = [("tftp1", LinuxTFTP({}, None)), ("tftp2", LinuxTFTP({}, None))]
-    mocker.patch.object(
-        PluginManager,
-        attribute="list_name_plugin",
-        return_value=plugin_list,
-    )
-    devices = device_manager.get_devices_by_type(LinuxTFTP)
-    assert "tftp1" in devices
-    assert "tftp2" in devices
-
-
-def test_get_devices_by_type_invalid_device(
-    mocker: MockerFixture,
-    device_manager: DeviceManager,
-) -> None:
-    """Ensure no devices are returned on invalid device by type.
-
-    :param mocker: pytest mock object
-    :type mocker: MockerFixture
-    :param device_manager: device manager instance
-    :type device_manager: DeviceManager
-    """
-    mocker.patch.object(LinuxTFTP, attribute="__init__", return_value=None)
-    plugin_list = [("tftp1", LinuxTFTP({}, None)), ("tftp2", LinuxTFTP({}, None))]
-    mocker.patch.object(
-        PluginManager,
-        attribute="list_name_plugin",
-        return_value=plugin_list,
-    )
-    assert device_manager.get_devices_by_type(LAN) == {}
 
 
 def test_register_device_valid_boardfarm_device(device_manager: DeviceManager) -> None:

@@ -10,14 +10,6 @@ from pytest_mock import MockerFixture
 
 from boardfarm3.lib.boardfarm_pexpect import BoardfarmPexpect, _LogWrapper
 
-_CONSOLE_LOGS_PATH = Path(__file__).parent.parent.parent / "console-logs"
-_SESSION_CONSOLE_LOG_SAVE_FILE = Path(__file__) / str(
-    _CONSOLE_LOGS_PATH / "session.txt",
-)
-_SESSION_CONSOLE_LOG_NO_SAVE_FILE = Path(__file__) / str(
-    _CONSOLE_LOGS_PATH / "session_no_save.txt",
-)
-
 
 def test_start_interactive_session(mocker: MockerFixture) -> None:
     """Ensure that an interactive session is started successfully.
@@ -44,29 +36,36 @@ def test_start_interactive_session(mocker: MockerFixture) -> None:
     interact_mock.assert_called_once()
 
 
-def test_boardfarm_pexpect_with_save_console_logs(mocker: MockerFixture) -> None:
+def test_boardfarm_pexpect_with_save_console_logs(
+    mocker: MockerFixture, tmp_path: Path
+) -> None:
     """Ensure boardfarm pexpect saves console logs to the disk when enabled.
 
     :param mocker: pytest mock object
     :type mocker: MockerFixture
+    :param tmp_path: pytest temporary directory fixture
+    :type tmp_path: Path
     """
     mocker.patch.multiple(BoardfarmPexpect, __abstractmethods__=set())
     bfp = BoardfarmPexpect(
-        "session", "pwd", save_console_logs="./console-logs/", args=["", ""]
+        "session", "pwd", save_console_logs=str(tmp_path), args=["", ""]
     )
     logger = logging.getLogger("pexpect.session")
     assert len(logger.handlers) > 0
-    assert Path.is_file(_SESSION_CONSOLE_LOG_SAVE_FILE)
+    assert (tmp_path / "session.txt").is_file()
     assert isinstance(bfp.logfile_read, _LogWrapper)
 
 
 def test_boardfarm_pexpect_without_save_console_logs(
     mocker: MockerFixture,
+    tmp_path: Path,
 ) -> None:
     """Ensure boardfarm pexpect doesn't save console logs to the disk when disabled.
 
     :param mocker: pytest mock object
     :type mocker: MockerFixture
+    :param tmp_path: pytest temporary directory fixture
+    :type tmp_path: Path
     """
     mocker.patch.multiple(BoardfarmPexpect, __abstractmethods__=set())
     bfp = BoardfarmPexpect(
@@ -77,7 +76,7 @@ def test_boardfarm_pexpect_without_save_console_logs(
     )
     logger = logging.getLogger("pexpect.session_no_save")
     assert len(logger.handlers) == 0
-    assert not Path.is_file(_SESSION_CONSOLE_LOG_NO_SAVE_FILE)
+    assert not (tmp_path / "session_no_save.txt").is_file()
     assert isinstance(bfp.logfile_read, _LogWrapper)
 
 

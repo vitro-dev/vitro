@@ -9,18 +9,8 @@ from typing import Any
 from pluggy import PluginManager
 
 from boardfarm3 import hookimpl
-from boardfarm3.devices.axiros_acs import AxirosACS
+
 from boardfarm3.devices.base_devices import BoardfarmDevice
-from boardfarm3.devices.genie_acs import GenieACS
-from boardfarm3.devices.kamailio import SIPcenterKamailio5
-from boardfarm3.devices.kea_provisioner import KeaProvisioner
-from boardfarm3.devices.linux_lan import LinuxLAN
-from boardfarm3.devices.linux_tftp import LinuxTFTP
-from boardfarm3.devices.linux_wan import LinuxWAN
-from boardfarm3.devices.linux_wlan import LinuxWLAN
-from boardfarm3.devices.pjsip_phone import PJSIPPhone
-from boardfarm3.devices.prplos_cpe import PrplDockerCPE
-from boardfarm3.devices.rpirdkb_cpe import RPiRDKBCPE
 from boardfarm3.exceptions import EnvConfigError
 from boardfarm3.lib.boardfarm_config import BoardfarmConfig, parse_boardfarm_config
 from boardfarm3.lib.device_manager import DeviceManager
@@ -157,17 +147,7 @@ def boardfarm_add_devices() -> dict[str, type[BoardfarmDevice]]:
     :returns: devices dictionary
     """
     return {
-        "bf_tftp": LinuxTFTP,
-        "bf_lan": LinuxLAN,
-        "bf_wan": LinuxWAN,
-        "bf_wlan": LinuxWLAN,
-        "bf_acs": GenieACS,
-        "bf_cpe": PrplDockerCPE,
-        "bf_dhcp": KeaProvisioner,
-        "bf_kamailio": SIPcenterKamailio5,
-        "bf_phone": PJSIPPhone,
-        "bf_rpi4rdkb": RPiRDKBCPE,
-        "axiros_acs": AxirosACS,
+
     }
 
 

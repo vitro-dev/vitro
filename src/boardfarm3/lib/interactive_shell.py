@@ -11,7 +11,7 @@ from typing import TYPE_CHECKING, Any
 
 import jedi
 import pytest
-from importlib_metadata import entry_points
+from importlib.metadata import entry_points
 from ptpython.ipython import IPythonInput, embed
 from rich import print as rich_print
 from rich.box import HORIZONTALS

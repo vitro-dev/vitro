@@ -1,1 +1,0 @@
-"""Boardfarm plugin hookspecs."""

@@ -7,8 +7,8 @@ from pathlib import Path
 
 import pytest
 
-from boardfarm3.lib.boardfarm_config import get_json, parse_boardfarm_config
-from boardfarm3.lib.docker_factory.docker_compose_generator import (
+from palco.lib.palco_config import get_json, parse_palco_config
+from palco.lib.docker_factory.docker_compose_generator import (
     DockerComposeGenerator,
 )
 
@@ -20,11 +20,11 @@ def fixture_template_manager() -> DockerComposeGenerator:
     ams_path = _TEST_DATA_DIR / "ams.json"
     environment_json_path = _TEST_DATA_DIR / "test_environment.json"
     inventory_json = loads(ams_path.read_text())
-    boardfarm_config = parse_boardfarm_config(
+    palco_config = parse_palco_config(
         inventory_json["F5685LGE-1-1"],
         get_json(environment_json_path.as_posix()),
     )
-    return DockerComposeGenerator(boardfarm_config)
+    return DockerComposeGenerator(palco_config)
 
 
 def test_docker_compose_generator(template_manager: DockerComposeGenerator) -> None:

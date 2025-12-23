@@ -10,7 +10,7 @@ from typing import TYPE_CHECKING, Any
 import pytest
 from netaddr.core import AddrFormatError
 
-from boardfarm3.lib.utils import (
+from palco.lib.utils import (
     disable_logs,
     get_nth_mac_address,
     get_pytest_name,

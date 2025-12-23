@@ -1,0 +1,1 @@
+"""Palco plugin hookspecs."""

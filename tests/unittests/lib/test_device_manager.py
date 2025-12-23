@@ -1,4 +1,4 @@
-"""Unit tests for the Boardfarm device manager module."""
+"""Unit tests for the Palco device manager module."""
 
 import re
 
@@ -6,15 +6,15 @@ import pytest
 
 from pytest_mock import MockerFixture
 
-from boardfarm3.devices.base_devices import BoardfarmDevice
+from palco.devices.base_devices import PalcoDevice
 
-from boardfarm3.lib.device_manager import DeviceManager, get_device_manager
-from boardfarm3.main import get_plugin_manager
+from palco.lib.device_manager import DeviceManager, get_device_manager
+from palco.main import get_plugin_manager
 
 
 
-class DummyDevice(BoardfarmDevice):
-    """Dummy Boardfarm Device class for testing."""
+class DummyDevice(PalcoDevice):
+    """Dummy Palco Device class for testing."""
 
 
 class InvalidDevice:
@@ -51,7 +51,7 @@ def test_device_manager_singleton(device_manager: DeviceManager) -> None:
 
 
 
-def test_register_device_valid_boardfarm_device(device_manager: DeviceManager) -> None:
+def test_register_device_valid_palco_device(device_manager: DeviceManager) -> None:
     """Verify a new device is registered successfully.
 
     :param device_manager: device manager instance
@@ -65,7 +65,7 @@ def test_register_device_valid_boardfarm_device(device_manager: DeviceManager) -
 def test_register_device_invalid_device_attribute_error(
     device_manager: DeviceManager,
 ) -> None:
-    """Ensure error is raised when try to register a non BoardfarmDevice.
+    """Ensure error is raised when try to register a non PalcoDevice.
 
     :param device_manager: device manager instance
     :type device_manager: DeviceManager

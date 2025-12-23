@@ -1,5 +1,5 @@
 [project]
-name = "boardfarm3"
+name = "palco"
 dynamic = ["version"]
 description = "Add your description here"
 readme = "README.md"
@@ -31,12 +31,12 @@ classifiers = [
 ]
 
 [project.scripts]
-boardfarm = "boardfarm3.main:main"
+palco = "palco.main:main"
 
-[project.entry-points."boardfarm"]
-core = "boardfarm3.plugins.core"
-booting = "boardfarm3.plugins.setup_environment"
-no_reservation = "boardfarm3.plugins.no_reservation"
+[project.entry-points."palco"]
+core = "palco.plugins.core"
+booting = "palco.plugins.setup_environment"
+no_reservation = "palco.plugins.no_reservation"
 
 [build-system]
     build-backend = "setuptools.build_meta"

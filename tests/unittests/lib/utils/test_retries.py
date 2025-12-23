@@ -7,7 +7,7 @@ from typing import Any
 import pytest
 from pytest_mock import MockerFixture
 
-from boardfarm3.lib.utils import retry, retry_on_exception
+from palco.lib.utils import retry, retry_on_exception
 
 
 class HelperMethods:

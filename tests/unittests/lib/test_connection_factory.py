@@ -1,12 +1,12 @@
-"""Unit tests for the Boardfarm connection factory module."""
+"""Unit tests for the Palco connection factory module."""
 
 import pytest
 from pytest_mock import MockerFixture
 
-from boardfarm3.exceptions import EnvConfigError
-from boardfarm3.lib.boardfarm_pexpect import BoardfarmPexpect
-from boardfarm3.lib.connection_factory import connection_factory
-from boardfarm3.lib.connections.ssh_connection import SSHConnection
+from palco.exceptions import EnvConfigError
+from palco.lib.palco_pexpect import PalcoPexpect
+from palco.lib.connection_factory import connection_factory
+from palco.lib.connections.ssh_connection import SSHConnection
 
 
 def test_connection_factory_invalid_connection_type() -> None:
@@ -24,8 +24,8 @@ def test_connection_factory_valid_connection_type(mocker: MockerFixture) -> None
     :param mocker: pytest mock object
     :type mocker: MockerFixture
     """
-    mocker.patch.object(BoardfarmPexpect, attribute="__init__", return_value=None)
-    mocker.patch.multiple(BoardfarmPexpect, __abstractmethods__=set())
+    mocker.patch.object(PalcoPexpect, attribute="__init__", return_value=None)
+    mocker.patch.multiple(PalcoPexpect, __abstractmethods__=set())
     mocker.patch.object(SSHConnection, attribute="__init__", return_value=None)
     connection = connection_factory(
         "ssh_connection",

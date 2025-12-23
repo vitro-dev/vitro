@@ -3,11 +3,11 @@
 from typing import Any
 
 
-class PalcoException(Exception):
+class PalcoError(Exception):
     """Base exception all palco exceptions inherit from."""
 
 
-class DeviceConnectionError(PalcoException):
+class DeviceConnectionError(PalcoError):
     """Raise this on device connection error."""
 
 
@@ -19,74 +19,74 @@ class SCPConnectionError(DeviceConnectionError):
     """Raise this on SCP connection failure."""
 
 
-class EnvConfigError(PalcoException):
+class EnvConfigError(PalcoError):
     """Raise this on environment configuration error."""
 
 
-class DeviceRequirementError(PalcoException):
+class DeviceRequirementError(PalcoError):
     """Raise this on device requirement error."""
 
 
-class DeviceNotFound(PalcoException):
+class DeviceNotFoundError(PalcoError):
     """Raise this on device is not available."""
 
 
-class FileLockTimeout(PalcoException):
+class FileLockTimeoutError(PalcoError):
     """Raise this on file lock timeout."""
 
 
-class ConfigurationFailure(PalcoException):
+class ConfigurationFailureError(PalcoError):
     """Raise this on device configuration failure."""
 
 
-class DeviceBootFailure(PalcoException):
+class DeviceBootFailureError(PalcoError):
     """Raise this on device boot failure."""
 
 
-class TR069ResponseError(PalcoException):
+class TR069ResponseErrorError(PalcoError):
     """Raise this on TR069 response error."""
 
 
-class TR069FaultCode(PalcoException):
+class TR069FaultCodeError(PalcoError):
     """Raise this on TR069 response error."""
 
     faultdict: dict[str, Any]
 
 
-class UseCaseFailure(PalcoException):
+class UseCaseFailureError(PalcoError):
     """Raise this on failures in use cases."""
 
 
-class NotSupportedError(PalcoException):
+class NotSupportedError(PalcoError):
     """Raise this on feature not supported."""
 
 
-class SNMPError(PalcoException):
+class SNMPError(PalcoError):
     """Raise this on any SNMP related error."""
 
 
-class VoiceError(PalcoException):
+class VoiceError(PalcoError):
     """Raise this on any voice related errors."""
 
 
 # TODO: maybe move to testsuite
-class TeardownError(PalcoException):
+class TeardownError(PalcoError):
     """Raise this on any test teardown failure."""
 
 
-class ContingencyCheckError(PalcoException):
+class ContingencyCheckError(PalcoError):
     """Raise this on any contingency check failure."""
 
 
-class WifiError(PalcoException):
+class WifiError(PalcoError):
     """Raise this on any wifi related errors."""
 
 
-class MulticastError(PalcoException):
+class MulticastError(PalcoError):
     """Raise this on any multicast related errors."""
 
 
-class CodeError(PalcoException):
+class CodeError(PalcoError):
     """Raise this if an code assert fails.
 
     This exception is only meant for custom assert

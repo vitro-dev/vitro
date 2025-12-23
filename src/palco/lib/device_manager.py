@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Any, TypeVar
 from unittest import mock
 
-from palco.exceptions import DeviceNotFound, NotSupportedError
+from palco.exceptions import DeviceNotFoundError, NotSupportedError
 
 if TYPE_CHECKING:
     from pluggy import PluginManager
@@ -64,7 +64,7 @@ class DeviceManager:
             if isinstance(plugin, device_type):
                 return plugin
         msg = f"No device available of type {device_type}"
-        raise DeviceNotFound(msg)
+        raise DeviceNotFoundError(msg)
 
     def register_device(self, device: PalcoDevice) -> None:
         """Register a device as plugin with palco.

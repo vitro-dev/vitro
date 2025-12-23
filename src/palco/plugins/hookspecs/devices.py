@@ -36,8 +36,8 @@ from argparse import Namespace
 from typing import Any
 
 from palco import hookspec
-from palco.lib.palco_config import PalcoConfig
 from palco.lib.device_manager import DeviceManager
+from palco.lib.palco_config import PalcoConfig
 
 # pylint: disable=unused-argument
 
@@ -61,6 +61,7 @@ def palco_server_boot(
     :type device_manager: DeviceManager
     """
 
+
 @hookspec
 async def palco_server_boot_async(
     config: PalcoConfig,
@@ -79,8 +80,6 @@ async def palco_server_boot_async(
     :param device_manager: device manager instance
     :type device_manager: DeviceManager
     """
-
-
 
 
 @hookspec

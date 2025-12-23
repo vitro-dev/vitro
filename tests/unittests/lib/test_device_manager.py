@@ -4,13 +4,9 @@ import re
 
 import pytest
 
-from pytest_mock import MockerFixture
-
 from palco.devices.base_devices import PalcoDevice
-
 from palco.lib.device_manager import DeviceManager, get_device_manager
 from palco.main import get_plugin_manager
-
 
 
 class DummyDevice(PalcoDevice):
@@ -21,8 +17,21 @@ class InvalidDevice:
     """Invalid Device class for testing."""
 
 
-@pytest.fixture(scope="function", name="device_manager")
+@pytest.fixture(name="device_manager")
 def device_manager_fixture() -> DeviceManager:
+    """Implement a defensive singleton pattern for test isolation.
+
+    DeviceManager is a singleton, but pytest fixtures are created per-test by default.
+    The first test creates the instance, subsequent tests would fail trying to create
+    it again.
+
+    1. Try to create a fresh instance (ideal for test isolation)
+    2. If that fails because one already exists, reuse it (pragmatic fallback)
+
+    Note: This is actually testing that the singleton pattern works correctly in
+    test_device_manager.py:29-39, where it verifies that creating a second instance
+    raises ValueError.
+    """
     try:
         return DeviceManager(get_plugin_manager())
     except ValueError:
@@ -40,15 +49,6 @@ def test_device_manager_singleton(device_manager: DeviceManager) -> None:
         ValueError, match=re.escape("DeviceManager is already initialized.")
     ):
         DeviceManager(get_plugin_manager())
-
-
-
-
-
-
-
-
-
 
 
 def test_register_device_valid_palco_device(device_manager: DeviceManager) -> None:

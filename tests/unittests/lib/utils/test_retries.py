@@ -2,8 +2,6 @@
 
 # pylint: disable=missing-docstring
 
-from typing import Any
-
 import pytest
 from pytest_mock import MockerFixture
 
@@ -87,10 +85,10 @@ def test_retry_three_times(
     mocker: MockerFixture,
     helper_methods: HelperMethods,
     funct_name: str,
-    exp_out: Any,
+    exp_out: str | int | None | bool,  # noqa: FBT001
     exp_count: int,
 ) -> None:
-    """Ensure that a method is executed a specified number of times if the method returns false.
+    """Check that a method is run the specified number of times if it returns False.
 
     :param mocker: pytest mock object
     :type mocker: MockerFixture

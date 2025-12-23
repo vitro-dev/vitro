@@ -53,7 +53,7 @@ _WIFI_CLIENTS_ENV_CONFIG = get_json(_ENV_CONFIG_WITH_WIFI_CLIENTS_PATH)
 class _ResponseStub:
     """HTTP/HTTPS requests response stub."""
 
-    def __init__(self, url: str, content: str, success: bool) -> None:
+    def __init__(self, url: str, content: str, success: bool) -> None:  # noqa: FBT001
         self.url = url
         self.content = content
         self._success = success
@@ -86,7 +86,7 @@ def test_env_config_valid_inventory_config() -> None:
 
 
 def test_get_devices_config_valid_configs() -> None:
-    """Examines whether valid inventory and environment configurations are successfully combined into a single config."""
+    """Check that valid inventory and environment are successfully combined."""
     bf_config = PalcoConfig(
         _MERGED_DEVICE_CONFIG,
         _VALID_ENV_CONFIG,
@@ -96,7 +96,7 @@ def test_get_devices_config_valid_configs() -> None:
 
 
 def test_get_device_config_valid_device_name() -> None:
-    """Checks whether a device configuration can be obtained from the merged configuration if it exists."""
+    """Get device config from merged configuration if it exists."""
     bf_config = PalcoConfig(
         _MERGED_DEVICE_CONFIG,
         _VALID_ENV_CONFIG,
@@ -107,7 +107,7 @@ def test_get_device_config_valid_device_name() -> None:
 
 
 def test_get_device_config_invalid_device() -> None:
-    """Ensure that an error is raised when attempting to retrieve the configuration of an invalid or non-existent device."""
+    """Check EnvConfigError is raised for invalid/non-existent device."""
     bf_config = PalcoConfig(
         _MERGED_DEVICE_CONFIG,
         _VALID_ENV_CONFIG,
@@ -118,7 +118,7 @@ def test_get_device_config_invalid_device() -> None:
 
 
 def test_get_board_sku_value_available_in_env_conf() -> None:
-    """Ensure that the board SKU value can be extracted from the configuration if it is present."""
+    """Check board SKU value can be extracted from config when present."""
     bf_config = PalcoConfig(
         _MERGED_DEVICE_CONFIG,
         _VALID_ENV_CONFIG,
@@ -128,7 +128,7 @@ def test_get_board_sku_value_available_in_env_conf() -> None:
 
 
 def test_get_board_sku_value_not_available_in_env_conf() -> None:
-    """Ensure that an error is raised when attempting to retrieve the board SKU value from device configurations when it is not present."""
+    """Check error is raised when board SKU value is not present."""
     bf_config = PalcoConfig(
         _MERGED_DEVICE_CONFIG,
         _SINGLE_LAN_ENV_CONFIG,
@@ -141,7 +141,7 @@ def test_get_board_sku_value_not_available_in_env_conf() -> None:
 
 
 def test_get_board_model_value_available_in_env_conf() -> None:
-    """Ensure that the board model value can be extracted from the configuration if it is present."""
+    """Check board model value can be extracted from config when present."""
     bf_config = PalcoConfig(
         _MERGED_DEVICE_CONFIG,
         _VALID_ENV_CONFIG,
@@ -151,7 +151,7 @@ def test_get_board_model_value_available_in_env_conf() -> None:
 
 
 def test_get_board_model_value_not_available_in_env_conf() -> None:
-    """Ensure that an error is raised when attempting to retrieve the board model value from device configurations when it is not present."""
+    """Check error is raised when board model value is not present."""
     bf_config = PalcoConfig(
         _MERGED_DEVICE_CONFIG,
         _SINGLE_LAN_ENV_CONFIG,
@@ -165,7 +165,7 @@ def test_get_board_model_value_not_available_in_env_conf() -> None:
 
 
 def test_get_prov_mode_value_available_in_env_conf() -> None:
-    """Ensure that the board prov mode value can be extracted from the configuration if it is present."""
+    """Check prov mode value can be extracted from config when present."""
     bf_config = PalcoConfig(
         _MERGED_DEVICE_CONFIG,
         _VALID_ENV_CONFIG,
@@ -175,7 +175,7 @@ def test_get_prov_mode_value_available_in_env_conf() -> None:
 
 
 def test_get_prov_mode_value_not_available_in_env_conf() -> None:
-    """Ensure that an error is raised when attempting to retrieve the prov mode value from device configurations when it is not present."""
+    """Check error is raised when prov mode value is not present."""
     bf_config = PalcoConfig(
         _MERGED_DEVICE_CONFIG,
         _SINGLE_LAN_ENV_CONFIG,
@@ -196,7 +196,7 @@ def test_get_json_valid_env_path() -> None:
 
 
 def test_get_json_file_valid_https_request(mocker: MockerFixture) -> None:
-    """Confirm that a JSON file can be retrieved through an HTTPS request..
+    """Check JSON file can be retrieved through HTTPS request.
 
     :param mocker: pytest mock object
     :type mocker: MockerFixture
@@ -214,7 +214,7 @@ def test_get_json_file_valid_https_request(mocker: MockerFixture) -> None:
 
 
 def test_get_json_file_valid_http_request(mocker: MockerFixture) -> None:
-    """Confirm that a JSON file can be retrieved through an HTTP request..
+    """Check JSON file can be retrieved through HTTP request.
 
     :param mocker: pytest mock object
     :type mocker: MockerFixture
@@ -232,7 +232,7 @@ def test_get_json_file_valid_http_request(mocker: MockerFixture) -> None:
 
 
 def test_get_json_file_invalid_response(mocker: MockerFixture) -> None:
-    """Ensure that a JSONDecodeError is raised when an invalid HTTP request is provided..
+    """Check JSONDecodeError is raised for invalid HTTP request.
 
     :param mocker: pytest mock object
     :type mocker: MockerFixture
@@ -254,7 +254,7 @@ def test_get_json_file_invalid_response(mocker: MockerFixture) -> None:
 
 
 def test_get_inventory_config_valid_inventory_config() -> None:
-    """Verify that inventory config for a device is retrieved if the device exists in inventory config passed."""
+    """Check inventory config is retrieved for existing device."""
     del _VALID_INVENTORY_CONFIG["CH7465LG-2-2"]["location"]
     assert (
         get_inventory_config(
@@ -266,7 +266,7 @@ def test_get_inventory_config_valid_inventory_config() -> None:
 
 
 def test_get_inventory_config_resource_not_found() -> None:
-    """Ensure that an "EnvConfigError" is raised when attempting to retrieve an invalid device from the inventory configuration."""
+    """Check EnvConfigError is raised for invalid device in inventory."""
     with pytest.raises(
         EnvConfigError,
         match="'DEVICE-XXX' resource not found in inventory config",
@@ -278,7 +278,7 @@ def test_get_inventory_config_resource_not_found() -> None:
 
 
 def test_get_inventory_config_invalid_location_config() -> None:
-    """Ensure that an "EnvConfigError" is triggered when attempting to retrieve a device's inventory configuration with invalid location details."""
+    """Check EnvConfigError is raised for invalid location config."""
     with pytest.raises(
         EnvConfigError,
         match="'ams-cmts5-md1' invalid location config",
@@ -290,7 +290,7 @@ def test_get_inventory_config_invalid_location_config() -> None:
 
 
 def test_parse_palco_config_valid_inventory_env_configs() -> None:
-    """Ensure that the parsing of device configuration is successful when valid inventory and environment configurations are provided."""
+    """Check parsing succeeds with valid inventory and env configs."""
     bf_config = parse_palco_config(
         inventory_config=_VALID_INVENTORY_CONFIG["CH7465LG-2-2"],
         env_json_config=get_json(_VALID_ENV_CONFIG_PATH),
@@ -301,7 +301,7 @@ def test_parse_palco_config_valid_inventory_env_configs() -> None:
 
 
 def test_parse_palco_config_env_inventory_requirement_missmatch() -> None:
-    """Ensure that an "EnvConfigError" is raised during the parsing of device configuration when an invalid inventory configuration and a valid environment configuration are provided."""
+    """Check EnvConfigError is raised for invalid inventory config."""
     with pytest.raises(EnvConfigError):
         parse_palco_config(
             inventory_config=_INVALID_INVENTORY_CONFIG["XXXX"],
@@ -310,7 +310,7 @@ def test_parse_palco_config_env_inventory_requirement_missmatch() -> None:
 
 
 def test_parse_palco_config_no_sufficient_lan_clients() -> None:
-    """Ensure that an "EnvConfigError" is raised during the parsing of device configuration when there is a LAN clients count mismatch between the inventory and environment configurations."""
+    """Check EnvConfigError is raised for LAN clients count mismatch."""
     with pytest.raises(EnvConfigError):
         parse_palco_config(
             inventory_config=_INVALID_INVENTORY_CONFIG["XXXX"],
@@ -319,7 +319,7 @@ def test_parse_palco_config_no_sufficient_lan_clients() -> None:
 
 
 def test_parse_palco_config_no_lan_clients() -> None:
-    """Ensure that the parsing of device configuration is successful when both an inventory configuration and an environment configuration are provided, and neither of them specifies LAN clients."""
+    """Check parsing succeeds when no LAN clients specified in configs."""
     bf_config = parse_palco_config(
         inventory_config=_INVALID_INVENTORY_CONFIG["XXXX"],
         env_json_config=get_json(str(_TEST_DATA_PATH / "env_conf_no_lans.json")),
@@ -328,7 +328,7 @@ def test_parse_palco_config_no_lan_clients() -> None:
 
 
 def test_parse_palco_config_wifi_clients_available() -> None:
-    """Ensure that the parsing of device configuration is successful when both an inventory configuration and an environment configuration are provided with wi-fi clients."""
+    """Check parsing succeeds with Wi-Fi clients in both configs."""
     bf_config = parse_palco_config(
         inventory_config=_VALID_INVENTORY_CONFIG["CH7465LG-2-2"],
         env_json_config=get_json(_ENV_CONFIG_WITH_WIFI_CLIENTS_PATH),
@@ -340,7 +340,7 @@ def test_parse_palco_config_wifi_clients_available() -> None:
 
 
 def test_parse_palco_config_requested_wifi_clients_not_available() -> None:
-    """Ensure that an "EnvConfigError" is raised during the parsing of device configuration when there is a WI-FI clients count mismatch between the inventory and environment configurations."""
+    """Check that EnvConfigError is raised for a Wi-Fi clients count mismatch."""
     with pytest.raises(
         EnvConfigError,
         match="Inventory config doesn't have 3 Wi-Fi clients requested by env config",
@@ -351,16 +351,17 @@ def test_parse_palco_config_requested_wifi_clients_not_available() -> None:
         )
 
 
-def test_parse_palco_config_wifi_device_not_found_for_band_env_wifi_client() -> (
-    None
-):
-    """Ensure that an "EnvConfigError" is raised during the parsing of device configuration when there is a WI-FI clients type mismatch between the inventory and environment configurations."""
+def test_parse_palco_config_wifi_device_not_found_for_band_env_wifi_client() -> None:
+    """Check that EnvConfigError is raised for a Wi-Fi client type mismatch."""
     inventory_config_copy = copy.deepcopy(_VALID_INVENTORY_CONFIG)
     for device in inventory_config_copy["CH7465LG-2-2"]["devices"]:
         if "band" in device:
             device["band"] = ""
             break
-    err_msg = "Unable to find a wifi device for (.*) env config Wi-Fi client in inventory config"
+    err_msg = (
+        "Unable to find a wifi device for (.*) env config Wi-Fi client in "
+        "inventory config"
+    )
     with pytest.raises(
         EnvConfigError,
         match=err_msg,
@@ -372,7 +373,7 @@ def test_parse_palco_config_wifi_device_not_found_for_band_env_wifi_client() -> 
 
 
 def test_parse_palco_config_wan_clients_available() -> None:
-    """Ensure that the parsing of device configuration is successful when both an inventory configuration and an environment configuration are provided with WAN clients."""
+    """Check that parsing is sucesseful with WAN clients in both configs."""
     bf_config = parse_palco_config(
         inventory_config=_VALID_INVENTORY_CONFIG["CH7465LG-2-2"],
         env_json_config=get_json(_VALID_ENV_CONFIG_PATH),

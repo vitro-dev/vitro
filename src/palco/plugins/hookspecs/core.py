@@ -7,8 +7,8 @@ from pluggy import PluginManager
 
 from palco import hookspec
 from palco.devices.base_devices import PalcoDevice
-from palco.lib.palco_config import PalcoConfig
 from palco.lib.device_manager import DeviceManager
+from palco.lib.palco_config import PalcoConfig
 
 # pylint: disable=unused-argument
 

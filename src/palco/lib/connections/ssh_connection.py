@@ -6,7 +6,7 @@ from typing import Any
 
 import pexpect
 
-from palco.exceptions import PalcoException, DeviceConnectionError
+from palco.exceptions import DeviceConnectionError, PalcoError
 from palco.lib.palco_pexpect import PalcoPexpect
 
 _CONNECTION_ERROR_THRESHOLD = 2
@@ -156,7 +156,7 @@ class SSHConnection(PalcoPexpect):
                 f"Command did not complete within {timeout} seconds. "
                 f"{self.name} prompt was not seen."
             )
-            raise PalcoException(
+            raise PalcoError(
                 msg,
             ) from e
         return str(self.before.strip())

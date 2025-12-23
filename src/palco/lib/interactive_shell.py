@@ -7,11 +7,11 @@ import re
 import sys
 import time
 from argparse import Namespace
+from importlib.metadata import entry_points
 from typing import TYPE_CHECKING, Any
 
 import jedi
 import pytest
-from importlib.metadata import entry_points
 from ptpython.ipython import IPythonInput, embed
 from rich import print as rich_print
 from rich.box import HORIZONTALS
@@ -26,8 +26,8 @@ if TYPE_CHECKING:
 
     from rich.console import JustifyMethod
 
-    from palco.lib.palco_pexpect import PalcoPexpect
     from palco.lib.device_manager import DeviceManager
+    from palco.lib.palco_pexpect import PalcoPexpect
 
 
 class OptionsTable:
@@ -117,11 +117,10 @@ def _start_interactive_session(
     console: PalcoPexpect,
 ) -> None:
     rich_print(
-        f"[magenta]Entering into {console_name} ({device_name})."
-        " Press Ctrl + ] to exit.",
+        f"[magenta]Entering into {console_name} ({device_name}). Press Ctrl + ] to exit.",  # noqa: E501
     )
     console.start_interactive_session()
-    print()  # fix for broken table after exiting the terminal  # noqa: T201
+    print()  # fix for broken table after exiting the terminal
 
 
 def _start_interactive_console(device: PalcoDevice) -> None:
@@ -208,7 +207,7 @@ def _interactive_ptpython_shell(
     __int = jedi.Interpreter
 
     # pylint: disable=protected-access
-    __int._allow_descriptor_getattr_default = False  # type: ignore[attr-defined]  # noqa: SLF001  # pylint: disable=line-too-long
+    __int._allow_descriptor_getattr_default = False  # type: ignore[attr-defined]  # pylint: disable=line-too-long
 
     if cmdline_args.legacy:
         devices = Namespace(**device_manager.get_devices_by_type(PalcoDevice))

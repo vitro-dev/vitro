@@ -1,7 +1,8 @@
 """Connect and run module."""
 
+from collections.abc import Callable
 from time import sleep
-from typing import Callable, ParamSpec, Protocol, TypeVar, runtime_checkable
+from typing import ParamSpec, Protocol, TypeVar, runtime_checkable
 
 from palco.exceptions import DeviceConnectionError
 

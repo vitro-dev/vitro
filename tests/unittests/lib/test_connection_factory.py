@@ -4,9 +4,9 @@ import pytest
 from pytest_mock import MockerFixture
 
 from palco.exceptions import EnvConfigError
-from palco.lib.palco_pexpect import PalcoPexpect
 from palco.lib.connection_factory import connection_factory
 from palco.lib.connections.ssh_connection import SSHConnection
+from palco.lib.palco_pexpect import PalcoPexpect
 
 
 def test_connection_factory_invalid_connection_type() -> None:

@@ -7,12 +7,12 @@ import os
 import time
 from contextlib import contextmanager
 from ipaddress import IPv4Address, IPv4Interface, IPv6Interface
-from typing import TYPE_CHECKING, Any, Callable
+from typing import TYPE_CHECKING, Any
 
 from netaddr import EUI, mac_unix_expanded
 
 if TYPE_CHECKING:
-    from collections.abc import Generator
+    from collections.abc import Callable, Generator
 
 _LOGGER = logging.getLogger(__name__)
 

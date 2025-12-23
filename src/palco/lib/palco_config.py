@@ -24,7 +24,7 @@ class PalcoConfig:
         merged_config: list[dict],
         env_config: dict[str, Any],
         inventory_config: dict[str, Any],
-    ):
+    ) -> None:
         """Initialize palco config.
 
         :param merged_config: merged devices config
@@ -182,8 +182,8 @@ def _merge_with_lan_config(
         return []
     if len(lan_devices) < len(lan_clients):
         msg = (
-            f"Inventory config doesn't have {len(lan_clients)} "
-            "LAN clients requested by env config"
+            f"Inventory config doesn't have {len(lan_clients)} LAN clients requested "
+            "by env config"
         )
         raise EnvConfigError(
             msg,

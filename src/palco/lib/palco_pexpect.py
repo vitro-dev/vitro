@@ -48,7 +48,9 @@ class _LogWrapper:
         if isinstance(string, bytes):
             string = string.decode("utf-8", errors="ignore")
         string = self._lastline + string
-        lines: list[str] = [line for line in string.splitlines(True) if line != "\r"]
+        lines: list[str] = [
+            line for line in string.splitlines(keepends=True) if line != "\r"
+        ]
         if lines and not string.endswith("\n"):
             self._lastline = lines[-1]
             lines = lines[:-1]

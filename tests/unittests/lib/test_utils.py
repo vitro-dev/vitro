@@ -5,7 +5,7 @@ from __future__ import annotations
 import logging
 import time
 from ipaddress import IPv4Address, IPv6Address
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, TypeVar
 
 import pytest
 from netaddr.core import AddrFormatError
@@ -20,11 +20,13 @@ from palco.lib.utils import (
     retry,
 )
 
+T = TypeVar("T")  # pylint: disable=invalid-name
+
 if TYPE_CHECKING:
     from pytest_mock import MockerFixture
 
 
-def _retry_example(value: Any) -> Any:
+def _retry_example(value: T) -> T:
     """Support method to perform retry.
 
     :param value: supplied value
@@ -42,7 +44,7 @@ def test_get_nth_mac_address_valid_mac() -> None:
 
 
 def test_get_nth_mac_address_invalid_mac() -> None:
-    """Ensure that an AddrFormatError error is thrown when an invalid mac address is passed."""
+    """CCheck that AddrFormatError is raised with an invalid MAC address."""
     with pytest.raises(AddrFormatError):
         get_nth_mac_address("XX:XX:XX:XX:XX:XX", 2)
 
@@ -114,7 +116,7 @@ def test_retry_valid_boolean_true_output(mocker: MockerFixture) -> None:
     :type mocker: MockerFixture
     """
     mocker.patch.object(time, attribute="sleep", return_value=None)
-    assert retry(_retry_example, 2, True)
+    assert retry(_retry_example, 2, True)  # noqa: FBT003
 
 
 def test_retry_valid_string_false_output(mocker: MockerFixture) -> None:
@@ -134,7 +136,7 @@ def test_retry_valid_string_bool_false_output(mocker: MockerFixture) -> None:
     :type mocker: MockerFixture
     """
     mocker.patch.object(time, attribute="sleep", return_value=None)
-    assert retry(_retry_example, 2, False) is False
+    assert retry(_retry_example, 2, False) is False  # noqa: FBT003
 
 
 @pytest.mark.parametrize(
@@ -157,7 +159,7 @@ def test_get_value_from_dict_returns_string_dict_none_values(
     input_dictionary: dict[int | str, str | dict[str, str]],
     expected_value: str | None,
 ) -> None:
-    """Ensure that the method returns all type of value for the passed key of dictionary.
+    """Check that all types of value are returned for the passed dictionary key.
 
     :param key: dictionary key
     :type key: int | str
@@ -244,7 +246,7 @@ def test_get_static_ipaddress(
 
 
 def test_get_static_ipaddress_invalid_config_no_options() -> None:
-    """Ensure that a KeyError is raised when an invalid ip configuration is passed to get a static ip."""
+    """Check that KeyError is raised with an invalid ip configuration."""
     config = {
         "some_other_key": "some_value",
     }

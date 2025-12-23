@@ -9,12 +9,11 @@ from typing import Any
 from pluggy import PluginManager
 
 from palco import hookimpl
-
 from palco.devices.base_devices import PalcoDevice
 from palco.exceptions import EnvConfigError
-from palco.lib.palco_config import PalcoConfig, parse_palco_config
 from palco.lib.device_manager import DeviceManager
-from palco.plugins.hookspecs import devices as Devices
+from palco.lib.palco_config import PalcoConfig, parse_palco_config
+from palco.plugins.hookspecs import devices as device_spec
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -42,7 +41,7 @@ def palco_add_hookspecs(plugin_manager: PluginManager) -> None:
     :param plugin_manager: plugin manager
     :type plugin_manager: PluginManager
     """
-    plugin_manager.add_hookspecs(Devices)
+    plugin_manager.add_hookspecs(device_spec)
 
 
 @hookimpl
@@ -146,9 +145,7 @@ def palco_add_devices() -> dict[str, type[PalcoDevice]]:
 
     :returns: devices dictionary
     """
-    return {
-
-    }
+    return {}
 
 
 @hookimpl

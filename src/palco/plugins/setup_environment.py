@@ -10,9 +10,9 @@ from pluggy import PluginManager
 
 from palco import hookimpl
 from palco.devices.base_devices.palco_device import PalcoDevice
-from palco.lib.palco_config import PalcoConfig
 from palco.lib.device_manager import DeviceManager
 from palco.lib.interactive_shell import get_interactive_console_options
+from palco.lib.palco_config import PalcoConfig
 
 IS_TASKGROUP_AVAILABLE = version_info >= (3, 11)
 _LOGGER = logging.getLogger(__name__)

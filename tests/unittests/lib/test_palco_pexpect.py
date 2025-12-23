@@ -11,7 +11,7 @@ from pytest_mock import MockerFixture
 from palco.lib.palco_pexpect import PalcoPexpect, _LogWrapper
 
 
-def test_start_interactive_session(mocker: MockerFixture) -> None:
+def test_start_interactive_session(mocker: MockerFixture):
     """Ensure that an interactive session is started successfully.
 
     :param mocker: pytest mock object
@@ -36,9 +36,7 @@ def test_start_interactive_session(mocker: MockerFixture) -> None:
     interact_mock.assert_called_once()
 
 
-def test_palco_pexpect_with_save_console_logs(
-    mocker: MockerFixture, tmp_path: Path
-) -> None:
+def test_palco_pexpect_with_save_console_logs(mocker: MockerFixture, tmp_path: Path):
     """Ensure palco pexpect saves console logs to the disk when enabled.
 
     :param mocker: pytest mock object
@@ -47,9 +45,7 @@ def test_palco_pexpect_with_save_console_logs(
     :type tmp_path: Path
     """
     mocker.patch.multiple(PalcoPexpect, __abstractmethods__=set())
-    bfp = PalcoPexpect(
-        "session", "pwd", save_console_logs=str(tmp_path), args=["", ""]
-    )
+    bfp = PalcoPexpect("session", "pwd", save_console_logs=str(tmp_path), args=["", ""])
     logger = logging.getLogger("pexpect.session")
     assert len(logger.handlers) > 0
     assert (tmp_path / "session.txt").is_file()
@@ -59,7 +55,7 @@ def test_palco_pexpect_with_save_console_logs(
 def test_palco_pexpect_without_save_console_logs(
     mocker: MockerFixture,
     tmp_path: Path,
-) -> None:
+):
     """Ensure palco pexpect doesn't save console logs to the disk when disabled.
 
     :param mocker: pytest mock object
@@ -80,7 +76,7 @@ def test_palco_pexpect_without_save_console_logs(
     assert isinstance(bfp.logfile_read, _LogWrapper)
 
 
-def test_get_last_output(mocker: MockerFixture) -> None:
+def test_get_last_output(mocker: MockerFixture):
     """Ensure that the last output is retrieved successfully.
 
     :param mocker: pytest mock object
@@ -111,7 +107,7 @@ def test_get_last_output(mocker: MockerFixture) -> None:
         ("Sample \x1b[32mText\x1b[0m\r\n", "Sample Text\n"),
     ],
 )
-def test_write_in_log_wrapper(input_line: str, expected_output: str) -> None:
+def test_write_in_log_wrapper(input_line: str, expected_output: str):
     """Ensure that logs are formatted properly.
 
     :param input_line: input string

@@ -7,7 +7,7 @@ from copy import deepcopy
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
-import jsonmerge
+import jsonmerge  # type: ignore[import-untyped]
 
 if TYPE_CHECKING:
     from palco.lib.palco_config import PalcoConfig

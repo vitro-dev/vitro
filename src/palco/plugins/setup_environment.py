@@ -58,7 +58,10 @@ async def _run_hook_async(
 ) -> None:
     start_time = time.monotonic()
     async_hook_name = f"{hook_name}_async"
-    async with asyncio.TaskGroup() as tg:
+    # TODO: remove mypy directive once minimum Python version is 3.11.
+    # Ignoring the error does not cause any problem at runtime because this
+    # hook is only called if `TaskGroup` is available.
+    async with asyncio.TaskGroup() as tg:  # type: ignore[attr-defined]
         for device in getattr(plugin_manager.hook, async_hook_name)(
             config=config,
             cmdline_args=cmdline_args,

@@ -21,10 +21,20 @@ def _install_deps(session: nox.Session) -> None:
     session.run_install(
         "uv",
         "sync",
+        "-q",
         "--frozen",
         f"--python={session.virtualenv.location}",
         env={"UV_PROJECT_ENVIRONMENT": session.virtualenv.location},
     )
+
+
+@nox.session(python=_PYTHON_VERSIONS)
+def lint(session: nox.Session) -> None:
+    """Perform style checks of the code."""
+    _install_deps(session)
+    session.run("ruff", "format", "--check", ".")
+    session.run("ruff", "check", ".")
+    session.run("mypy", "./src/", "./tests/")
 
 
 @nox.session

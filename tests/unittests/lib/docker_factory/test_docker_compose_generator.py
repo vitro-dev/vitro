@@ -7,8 +7,10 @@ from pathlib import Path
 
 import pytest
 
-from palco.lib.docker_factory.docker_compose_generator import DockerComposeGenerator
-from palco.lib.palco_config import get_json, parse_palco_config
+from palco.libraries.docker_factory.docker_compose_generator import (
+    DockerComposeGenerator,
+)
+from palco.libraries.palco_config import get_json, parse_palco_config
 
 _TEST_DATA_DIR = Path(__file__).parent / "test_data"
 

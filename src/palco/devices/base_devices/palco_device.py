@@ -2,7 +2,7 @@
 
 from argparse import Namespace
 
-from palco.lib.palco_pexpect import PalcoPexpect
+from palco.libraries.palco_pexpect import PalcoPexpect
 from palco.type_hints import DeviceConfigType
 
 

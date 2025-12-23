@@ -4,7 +4,7 @@ from argparse import Namespace
 from typing import Any
 
 from palco import hookimpl
-from palco.lib.palco_config import get_inventory_config
+from palco.libraries.palco_config import get_inventory_config
 
 
 @hookimpl

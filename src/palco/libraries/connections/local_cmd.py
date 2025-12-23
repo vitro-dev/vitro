@@ -1,27 +1,23 @@
-"""Connect to a device with a local serial command.
-
-Basically a local command with no authentication on connection.
-"""
+"""Connect to a device with a local command."""
 
 from __future__ import annotations
 
-import os
 from typing import TYPE_CHECKING, Any
 
-from pexpect import EOF
+import pexpect
 
 from palco.exceptions import DeviceConnectionError, ShellPromptUndefinedError
-from palco.lib.connections.local_cmd import LocalCmd
+from palco.libraries.palco_pexpect import PalcoPexpect
 
 if TYPE_CHECKING:
     from pexpect.spawnbase import _InputRePattern
 
+_CONNECTION_ERROR_THRESHOLD = 2
+_CONNECTION_FAILED_STR: str = "Connection failed with Local Command"
 
-class SerialConnection(LocalCmd):
-    """Connect to a device with local serail command.
 
-    No authentication needed. Just connect!
-    """
+class LocalCmd(PalcoPexpect):
+    """Connect to a device with a local command."""
 
     def __init__(  # pylint: disable=too-many-arguments
         self,  # pylint: disable=unused-argument
@@ -30,11 +26,9 @@ class SerialConnection(LocalCmd):
         save_console_logs: str,
         shell_prompt: list[_InputRePattern] | None = None,
         args: list[str] | None = None,
-        **kwargs: dict[str, Any],
+        **kwargs: Any,  # noqa: ANN401
     ) -> None:
-        """Initialize local command serial connection.
-
-        No authentication!
+        """Initialize local command connection.
 
         :param name: connection name
         :type name: str
@@ -47,31 +41,46 @@ class SerialConnection(LocalCmd):
         :param args: arguments to the command, defaults to None
         :type args: list[str], optional
         :param kwargs: additional keyword args
-        :raises DeviceConnectionError: on connection failure
         """
+        self._shell_prompt = shell_prompt
         if args is None:
-            args = conn_command.split()
-            conn_command = args.pop(0)
-        if kwargs.get("env") is None:
-            # some serial commands need a terminal that is not "dumb"
-            kwargs["env"] = {
-                "PATH": os.getenv("PATH"),
-                "TERM": os.getenv("TERM") if os.getenv("TERM") else "xterm",
-            }
+            args = []
         super().__init__(
-            name, conn_command, save_console_logs, shell_prompt, args, **kwargs
+            name,
+            conn_command,
+            save_console_logs,
+            args,
+            **kwargs,
         )
-        try:
-            self.expect("Terminal ready", 5)
-        except EOF as exc:
-            raise DeviceConnectionError(self.before) from exc
 
     # pylint: disable=duplicate-code
     def login_to_server(self, password: str | None = None) -> None:
-        """Do not do anything, just connect.
+        """Login.
 
-        :param password: unused
+        :param password: ssh password
+        :raises DeviceConnectionError: connection failed via local command
+        :raises ValueError: if shell prompt is unavailable
         """
+        if password is not None:
+            if self.expect(
+                ["password:", pexpect.EOF, pexpect.TIMEOUT],
+            ):
+                raise DeviceConnectionError(_CONNECTION_FAILED_STR)
+            self.sendline(password)
+        # TODO: temp fix for now. To be decided if shell prompt to be used.
+        if not self._shell_prompt:
+            raise ShellPromptUndefinedError
+        if (
+            self.expect(
+                [
+                    pexpect.EOF,
+                    pexpect.TIMEOUT,
+                    *self._shell_prompt,
+                ],
+            )
+            < _CONNECTION_ERROR_THRESHOLD
+        ):
+            raise DeviceConnectionError(_CONNECTION_FAILED_STR)
 
     def execute_command(self, command: str, timeout: int = -1) -> str:
         """Execute a command in the local command session.

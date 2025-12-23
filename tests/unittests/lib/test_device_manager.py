@@ -6,7 +6,7 @@ from argparse import Namespace
 import pytest
 
 from palco.devices.base_devices import PalcoDevice
-from palco.lib.device_manager import DeviceManager, get_device_manager
+from palco.libraries.device_manager import DeviceManager, get_device_manager
 from palco.main import get_plugin_manager
 
 

@@ -8,7 +8,7 @@ import pexpect
 import pytest
 from pytest_mock import MockerFixture
 
-from palco.lib.palco_pexpect import PalcoPexpect, _LogWrapper
+from palco.libraries.palco_pexpect import PalcoPexpect, _LogWrapper
 
 
 class TestPalcoPexpect(PalcoPexpect):

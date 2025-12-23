@@ -19,15 +19,15 @@ from rich.prompt import Prompt
 from rich.table import Table
 
 from palco.devices.base_devices.palco_device import PalcoDevice
-from palco.lib.utils import disable_logs
+from palco.libraries.utils import disable_logs
 
 if TYPE_CHECKING:
     from collections.abc import Callable
 
     from rich.console import JustifyMethod
 
-    from palco.lib.device_manager import DeviceManager
-    from palco.lib.palco_pexpect import PalcoPexpect
+    from palco.libraries.device_manager import DeviceManager
+    from palco.libraries.palco_pexpect import PalcoPexpect
 
 
 class OptionsTable:

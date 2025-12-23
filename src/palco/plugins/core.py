@@ -11,8 +11,8 @@ from pluggy import PluginManager
 from palco import hookimpl
 from palco.devices.base_devices import PalcoDevice
 from palco.exceptions import EnvConfigError
-from palco.lib.device_manager import DeviceManager
-from palco.lib.palco_config import PalcoConfig, parse_palco_config
+from palco.libraries.device_manager import DeviceManager
+from palco.libraries.palco_config import PalcoConfig, parse_palco_config
 from palco.plugins.hookspecs import devices as device_spec
 
 _LOGGER = logging.getLogger(__name__)

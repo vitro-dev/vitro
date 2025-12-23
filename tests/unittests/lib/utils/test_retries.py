@@ -5,7 +5,7 @@
 import pytest
 from pytest_mock import MockerFixture
 
-from palco.lib.utils import retry, retry_on_exception
+from palco.libraries.utils import retry, retry_on_exception
 
 
 class HelperMethods:

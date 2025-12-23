@@ -10,7 +10,7 @@ from pluggy import PluginManager
 
 from palco import PROJECT_NAME
 from palco.configs import LOGGING_CONFIG
-from palco.lib.palco_config import get_json
+from palco.libraries.palco_config import get_json
 from palco.plugins.hookspecs import core
 
 # pylint: disable=no-member  # plugin_manager.hook.* calls are dynamic

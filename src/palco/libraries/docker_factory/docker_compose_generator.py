@@ -10,7 +10,7 @@ from typing import TYPE_CHECKING, Any
 import jsonmerge  # type: ignore[import-untyped]
 
 if TYPE_CHECKING:
-    from palco.lib.palco_config import PalcoConfig
+    from palco.libraries.palco_config import PalcoConfig
 
 
 _DEVICE_MAP = {"EXT_VOIP": "softphone", "SIP": "sipcenter"}

@@ -36,8 +36,8 @@ from argparse import Namespace
 from typing import Any
 
 from palco import hookspec
-from palco.lib.device_manager import DeviceManager
-from palco.lib.palco_config import PalcoConfig
+from palco.libraries.device_manager import DeviceManager
+from palco.libraries.palco_config import PalcoConfig
 
 # pylint: disable=unused-argument
 

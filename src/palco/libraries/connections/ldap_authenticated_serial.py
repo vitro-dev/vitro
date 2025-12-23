@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING, Any
 import pexpect
 
 from palco.exceptions import DeviceConnectionError
-from palco.lib.connections.ssh_connection import SSHConnection
+from palco.libraries.connections.ssh_connection import SSHConnection
 
 if TYPE_CHECKING:
     from pexpect.spawnbase import _InputRePattern

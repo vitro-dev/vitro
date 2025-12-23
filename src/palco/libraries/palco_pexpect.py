@@ -12,7 +12,7 @@ from typing import Any
 
 import pexpect
 
-from palco.lib.utils import disable_logs
+from palco.libraries.utils import disable_logs
 
 
 def _apply_backspace(string: str) -> str:

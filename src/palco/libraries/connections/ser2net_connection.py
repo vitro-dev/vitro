@@ -5,7 +5,7 @@ from __future__ import annotations
 import pexpect
 
 from palco.exceptions import DeviceConnectionError
-from palco.lib.connections.telnet import TelnetConnection
+from palco.libraries.connections.telnet import TelnetConnection
 
 # pylint: disable=duplicate-code
 

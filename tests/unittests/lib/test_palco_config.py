@@ -11,7 +11,7 @@ import requests
 from pytest_mock import MockerFixture
 
 from palco.exceptions import EnvConfigError
-from palco.lib.palco_config import (
+from palco.libraries.palco_config import (
     PalcoConfig,
     get_inventory_config,
     get_json,

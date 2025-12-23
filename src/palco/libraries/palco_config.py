@@ -11,7 +11,7 @@ import jsonmerge  # type: ignore[import-untyped]
 import requests
 
 from palco.exceptions import EnvConfigError
-from palco.lib.utils import get_value_from_dict
+from palco.libraries.utils import get_value_from_dict
 
 
 class PalcoConfig:

@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING, Any
 import pexpect
 
 from palco.exceptions import DeviceConnectionError, PalcoError
-from palco.lib.palco_pexpect import PalcoPexpect
+from palco.libraries.palco_pexpect import PalcoPexpect
 
 if TYPE_CHECKING:
     from pexpect.spawnbase import _InputRePattern

@@ -3,13 +3,15 @@
 from typing import Any
 
 from palco.exceptions import EnvConfigError
-from palco.lib.connections.ldap_authenticated_serial import LdapAuthenticatedSerial
-from palco.lib.connections.local_cmd import LocalCmd
-from palco.lib.connections.ser2net_connection import Ser2NetConnection
-from palco.lib.connections.serial_connection import SerialConnection
-from palco.lib.connections.ssh_connection import SSHConnection
-from palco.lib.connections.telnet import TelnetConnection
-from palco.lib.palco_pexpect import PalcoPexpect
+from palco.libraries.connections.ldap_authenticated_serial import (
+    LdapAuthenticatedSerial,
+)
+from palco.libraries.connections.local_cmd import LocalCmd
+from palco.libraries.connections.ser2net_connection import Ser2NetConnection
+from palco.libraries.connections.serial_connection import SerialConnection
+from palco.libraries.connections.ssh_connection import SSHConnection
+from palco.libraries.connections.telnet import TelnetConnection
+from palco.libraries.palco_pexpect import PalcoPexpect
 
 
 def connection_factory(

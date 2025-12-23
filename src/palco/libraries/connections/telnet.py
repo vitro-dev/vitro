@@ -5,7 +5,7 @@ from __future__ import annotations
 import pexpect
 
 from palco.exceptions import DeviceConnectionError
-from palco.lib.palco_pexpect import PalcoPexpect
+from palco.libraries.palco_pexpect import PalcoPexpect
 
 
 class TelnetConnection(PalcoPexpect):

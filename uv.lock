@@ -717,6 +717,7 @@ dependencies = [
 
 [package.dev-dependencies]
 ci = [
+    { name = "nox" },
     { name = "pre-commit" },
     { name = "pre-commit-uv" },
 ]
@@ -753,6 +754,7 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 ci = [
+    { name = "nox", specifier = ">=2025.11.12" },
     { name = "pre-commit", specifier = ">=4.5.1" },
     { name = "pre-commit-uv", specifier = ">=4.2.0" },
 ]

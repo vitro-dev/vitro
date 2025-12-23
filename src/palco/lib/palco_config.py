@@ -7,7 +7,7 @@ from functools import cached_property
 from pathlib import Path
 from typing import Any, cast
 
-import jsonmerge
+import jsonmerge  # type: ignore[import-untyped]
 import requests
 
 from palco.exceptions import EnvConfigError
@@ -150,8 +150,8 @@ def _merge_with_wifi_config(
         )
     merged_wifi_devices: list[dict[str, Any]] = []
     wifi_devices_copy = deepcopy(wifi_devices)
-    wifi_clients = sorted(wifi_clients, key=lambda x: x.get("band"))
-    wifi_devices_copy = sorted(wifi_devices_copy, key=lambda x: x.get("band"))
+    wifi_clients = sorted(wifi_clients, key=lambda x: x.get("band", ""))
+    wifi_devices_copy = sorted(wifi_devices_copy, key=lambda x: x.get("band", ""))
     for wifi_client in wifi_clients:
         found = None
         for wifi_device in wifi_devices_copy:
@@ -230,6 +230,12 @@ def get_inventory_config(
             msg,
         )
     inventory_config = full_inventory_config.get(resource_name)
+    if not isinstance(inventory_config, dict):
+        msg = (
+            f"Inventory configuration for '{resource_name!r}' is of type "
+            f"{type(inventory_config).__name__}, expected 'dict'"
+        )
+        raise EnvConfigError(msg)
     if "location" in inventory_config:
         if locations := full_inventory_config.get(
             "locations",
@@ -280,6 +286,9 @@ def parse_palco_config(
     ]
     merged_devices_config = []
     environment_def = env_json_config.get("environment_def")
+    if environment_def is None:
+        msg = "'environment_def' is missing from env config"
+        raise EnvConfigError(msg)
     for device in other_devices:
         device_name = device.get("name")
         merged_devices_config.append(

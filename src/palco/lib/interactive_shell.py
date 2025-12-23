@@ -10,7 +10,7 @@ from argparse import Namespace
 from importlib.metadata import entry_points
 from typing import TYPE_CHECKING, Any
 
-import jedi
+import jedi  # type: ignore[import-untyped]
 import pytest
 from ptpython.ipython import IPythonInput, embed
 from rich import print as rich_print
@@ -65,6 +65,8 @@ class OptionsTable:
         :param width: column width, defaults to None
         :type width: Optional[int], optional
         """
+        if justify is None:
+            justify = "default"
         self._table.add_column(name, justify=justify, style=style, width=width)
 
     def add_option(

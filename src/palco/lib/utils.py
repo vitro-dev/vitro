@@ -6,8 +6,8 @@ import logging
 import os
 import time
 from contextlib import contextmanager
-from ipaddress import IPv4Address, IPv4Interface, IPv6Interface
-from typing import TYPE_CHECKING, Any
+from ipaddress import IPv4Address, IPv4Interface, IPv6Address, IPv6Interface
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from netaddr import EUI, mac_unix_expanded
 
@@ -15,6 +15,8 @@ if TYPE_CHECKING:
     from collections.abc import Callable, Generator
 
 _LOGGER = logging.getLogger(__name__)
+
+IPAddressType = TypeVar("IPAddressType", IPv4Address, IPv6Address)
 
 
 def get_nth_mac_address(mac_address: str, nth_number: int) -> str:
@@ -39,16 +41,18 @@ def get_pytest_name() -> str:
     )
 
 
-def ip_pool_to_list(start_ip: IPv4Address, end_ip: IPv4Address) -> list[IPv4Address]:
+def ip_pool_to_list(
+    start_ip: IPAddressType, end_ip: IPAddressType
+) -> list[IPAddressType]:
     """Generate ip address list based on ip pool boundaries.
 
     :param start_ip: first ip of the pool
-    :type start_ip: IPv4Address
+    :type start_ip: IPv4Address | IPv6Address
     :param end_ip: last ip of the pool
-    :type end_ip: IPv4Address
+    :type end_ip: IPv4Address | IPv6Address
     :return: list of ip addresses based on min ip address and maximum
              ip address of the pool
-    :rtype: list[IPv4Address]
+    :rtype: list[IPv4Address | IPv6Address]
     """
     ip_list = []
     while end_ip >= start_ip and start_ip != end_ip + 1:
@@ -112,7 +116,7 @@ def retry_on_exception(
     return method(*args)
 
 
-def get_value_from_dict(key: str, dictionary: dict) -> Any:  # noqa: ANN401
+def get_value_from_dict(key: str | int, dictionary: dict) -> Any:  # noqa: ANN401
     """Get value of given key from the dictionary recursively.
 
     This method is used to avoid nested checks for None to get

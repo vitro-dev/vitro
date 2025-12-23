@@ -16,7 +16,7 @@ from palco.plugins.hookspecs import core
 # pylint: disable=no-member  # plugin_manager.hook.* calls are dynamic
 
 
-_PALCO_PLUGIN_MANAGER: PluginManager = None  # pylint: disable=C0103
+_PALCO_PLUGIN_MANAGER: PluginManager | None = None  # pylint: disable=C0103
 
 
 def get_plugin_manager() -> PluginManager:

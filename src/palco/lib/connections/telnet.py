@@ -111,7 +111,7 @@ class TelnetConnection(PalcoPexpect):
         await self.expect(self._shell_prompt, timeout=timeout, async_=True)
         return self.get_last_output()
 
-    def close(self, *, force: bool = True) -> None:
+    def close(self, force: bool = True) -> None:  # noqa: FBT001, FBT002
         """Close the connection.
 
         :param force: True to send a SIGKILL, False for SIGINT/UP, default True

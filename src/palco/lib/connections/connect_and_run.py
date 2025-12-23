@@ -37,7 +37,6 @@ def connect_and_run(func: Callable[P, T]) -> Callable[P, T]:
     def wrapper(*args: P.args, **kwargs: P.kwargs) -> T:
         instance = args[0]
         exc_to_raise = None
-        conn_exception = None
         if not isinstance(instance, RuntimeConnectable):
             msg = (
                 f"Provided instance {instance} do not ,"
@@ -51,11 +50,11 @@ def connect_and_run(func: Callable[P, T]) -> Callable[P, T]:
                 try:
                     instance.connect_console()
                     break
-                except DeviceConnectionError as exc:
-                    conn_exception = exc
+                except DeviceConnectionError:
                     sleep(15)
+                    raise
             else:
-                raise conn_exception
+                raise DeviceConnectionError
 
         try:
             output = func(*args, **kwargs)

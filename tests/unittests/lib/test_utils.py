@@ -11,6 +11,7 @@ import pytest
 from netaddr.core import AddrFormatError
 
 from palco.lib.utils import (
+    IPAddressType,
     disable_logs,
     get_nth_mac_address,
     get_pytest_name,
@@ -83,9 +84,9 @@ def test_get_pytest_name_return_current_test() -> None:
     ],
 )
 def test_ip_pool_to_list_valid_ipv4_n_ipv6_address_ranges(
-    ip_range_start: IPv4Address | IPv6Address,
-    ip_range_end: IPv4Address | IPv6Address,
-    expected_ip_pool_list: list[IPv4Address | IPv6Address],
+    ip_range_start: IPAddressType,
+    ip_range_end: IPAddressType,
+    expected_ip_pool_list: list[IPAddressType],
 ) -> None:
     """Ensure that valid ip pools are returned for given ip ranges.
 

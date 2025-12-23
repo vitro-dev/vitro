@@ -3,22 +3,30 @@
 from argparse import Namespace
 
 from palco.lib.palco_pexpect import PalcoPexpect
+from palco.type_hints import DeviceConfigType
 
 
 class PalcoDevice:
     """Palco base device which all devices inherit from."""
 
-    def __init__(self, config: dict, cmdline_args: Namespace) -> None:
+    def __init__(self, config: DeviceConfigType, cmdline_args: Namespace) -> None:
         """Initialize palco base device.
 
         :param config: device configuration
         :param cmdline_args: command line arguments
         """
-        self._config: dict = config
+        self._config: DeviceConfigType = config
         self._cmdline_args = cmdline_args
 
+    def _extract_property_value(self, property_name: str) -> str:
+        name = self._config.get(property_name)
+        if name is None:
+            msg = f"{property_name} is not set in the configuration: {self._config=}"
+            raise RuntimeError(msg)
+        return name
+
     @property
-    def config(self) -> dict:
+    def config(self) -> DeviceConfigType:
         """Get device configuration.
 
         :returns: device configuration
@@ -31,7 +39,7 @@ class PalcoDevice:
 
         :returns: device name
         """
-        return self._config.get("name")
+        return self._extract_property_value("name")
 
     @property
     def device_type(self) -> str:
@@ -39,7 +47,7 @@ class PalcoDevice:
 
         :returns: device type
         """
-        return self._config.get("type")
+        return self._extract_property_value("type")
 
     def get_interactive_consoles(self) -> dict[str, PalcoPexpect]:
         """Get interactive consoles from device.

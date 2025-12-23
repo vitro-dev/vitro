@@ -1,3 +1,4 @@
+# mypy: disable-error-code="empty-body"
 """Palco main hook specifications."""
 
 from argparse import ArgumentParser, Namespace

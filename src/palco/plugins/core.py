@@ -175,10 +175,10 @@ def palco_register_devices(
             continue
         device_type = device_config.get("type")
         if device_type in known_devices_list:
-            device_obj = known_devices_list.get(device_type)(
-                device_config,
-                cmdline_args,
-            )
+            device_class = known_devices_list.get(device_type)
+            if device_class is None:
+                continue
+            device_obj = device_class(device_config, cmdline_args)
             device_manager.register_device(device_obj)
         else:
             msg = (

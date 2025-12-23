@@ -2,12 +2,15 @@
 
 from __future__ import annotations
 
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import pexpect
 
 from palco.exceptions import DeviceConnectionError
 from palco.lib.connections.ssh_connection import SSHConnection
+
+if TYPE_CHECKING:
+    from pexpect.spawnbase import _InputRePattern
 
 _CONNECTION_FAILED_STR: str = "Failed to connect to device via serial"
 _EOF_INDEX = 2
@@ -21,7 +24,7 @@ class LdapAuthenticatedSerial(SSHConnection):
         name: str,
         ip_addr: str,
         ldap_credentials: str,
-        shell_prompt: list[str],
+        shell_prompt: list[_InputRePattern],
         port: int = 22,
         save_console_logs: str = "",
         **kwargs: dict[str, Any],  # ignore other arguments  # noqa: ARG002

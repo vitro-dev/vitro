@@ -32,7 +32,10 @@ repos:
         # https://docs.astral.sh/ruff/formatter/#sorting-imports
         args: [check, --select, I, --fix]
         name: ruff-isort
-
     -   id: ruff-format
-
     -   id: ruff
+-   repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.19.1
+    hooks:
+    -   id: mypy
+        additional_dependencies: ["types-netaddr>=1.3.0.20251108","types-pexpect>=4.9.0.20250916","types-requests>=2.32.4.20250913"]

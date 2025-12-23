@@ -6,12 +6,15 @@ Basically a local command with no authentication on connection.
 from __future__ import annotations
 
 import os
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from pexpect import EOF
 
-from palco.exceptions import DeviceConnectionError
+from palco.exceptions import DeviceConnectionError, ShellPromptUndefinedError
 from palco.lib.connections.local_cmd import LocalCmd
+
+if TYPE_CHECKING:
+    from pexpect.spawnbase import _InputRePattern
 
 
 class SerialConnection(LocalCmd):
@@ -25,7 +28,7 @@ class SerialConnection(LocalCmd):
         name: str,
         conn_command: str,
         save_console_logs: str,
-        shell_prompt: list[str] | None = None,
+        shell_prompt: list[_InputRePattern] | None = None,
         args: list[str] | None = None,
         **kwargs: dict[str, Any],
     ) -> None:
@@ -76,7 +79,10 @@ class SerialConnection(LocalCmd):
         :param command: command to execute
         :param timeout: timeout in seconds. defaults to -1
         :returns: command output
+        :raises ValueError: if shell prompt is unavailable
         """
+        if not self._shell_prompt:
+            raise ShellPromptUndefinedError
         self.sendline(command)
         self.expect_exact(command)
         self.expect(self.linesep)

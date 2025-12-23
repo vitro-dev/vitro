@@ -7,6 +7,10 @@ class PalcoError(Exception):
     """Base exception all palco exceptions inherit from."""
 
 
+class ShellPromptUndefinedError(PalcoError):
+    """Raise this when shell prompt is not defined."""
+
+
 class DeviceConnectionError(PalcoError):
     """Raise this on device connection error."""
 

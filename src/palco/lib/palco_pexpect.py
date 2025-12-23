@@ -75,7 +75,7 @@ class PalcoPexpect(pexpect.spawn, metaclass=ABCMeta):
         command: str,
         save_console_logs: str,
         args: list[str],
-        **kwargs: dict[str, Any],
+        **kwargs: Any,  # noqa: ANN401
     ) -> None:
         """Initialize palco pexpect.
 
@@ -121,7 +121,7 @@ class PalcoPexpect(pexpect.spawn, metaclass=ABCMeta):
 
         :returns: last output from the buffer
         """
-        return self.before.strip()
+        return self.before.strip()  # type: ignore[union-attr]
 
     @abstractmethod
     def execute_command(self, command: str, timeout: int = -1) -> str:

@@ -2,12 +2,15 @@
 
 from __future__ import annotations
 
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import pexpect
 
 from palco.exceptions import DeviceConnectionError, PalcoError
 from palco.lib.palco_pexpect import PalcoPexpect
+
+if TYPE_CHECKING:
+    from pexpect.spawnbase import _InputRePattern
 
 _CONNECTION_ERROR_THRESHOLD = 2
 _CONNECTION_FAILED_STR: str = "Connection failed to SSH server"
@@ -21,7 +24,7 @@ class SSHConnection(PalcoPexpect):
         name: str,
         ip_addr: str,
         username: str,
-        shell_prompt: list[str],
+        shell_prompt: list[_InputRePattern],
         port: int = 22,
         password: str | None = None,
         save_console_logs: str = "",
@@ -47,7 +50,7 @@ class SSHConnection(PalcoPexpect):
         """
         self._shell_prompt = shell_prompt
         self._username = username
-        self._password = password
+        self._password = password if password is not None else ""
         args = [
             f"{username}@{ip_addr}",
             f"-p {port}",
@@ -159,7 +162,7 @@ class SSHConnection(PalcoPexpect):
             raise PalcoError(
                 msg,
             ) from e
-        return str(self.before.strip())
+        return str(self.before.strip())  # type:ignore[union-attr]
 
     def sudo_sendline(self, cmd: str) -> None:
         """Add sudo in the sendline if username is root.

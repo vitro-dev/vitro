@@ -11,6 +11,13 @@ from pytest_mock import MockerFixture
 from palco.lib.palco_pexpect import PalcoPexpect, _LogWrapper
 
 
+class TestPalcoPexpect(PalcoPexpect):
+    r"""Quick class to provide an implementation for abstract methods."""
+
+    def execute_command(self, command, timeout=-1):  # noqa: ANN001, D102
+        return super().execute_command(command, timeout)
+
+
 def test_start_interactive_session(mocker: MockerFixture):
     """Ensure that an interactive session is started successfully.
 
@@ -18,8 +25,7 @@ def test_start_interactive_session(mocker: MockerFixture):
     :type mocker: MockerFixture
     """
     mocker.patch.object(pexpect.spawn, attribute="__init__", return_value=None)
-    mocker.patch.multiple(PalcoPexpect, __abstractmethods__=set())
-    palco_pexpect = PalcoPexpect(
+    palco_pexpect = TestPalcoPexpect(
         "session",
         "pwd",
         save_console_logs="",
@@ -30,13 +36,13 @@ def test_start_interactive_session(mocker: MockerFixture):
         "interact",
         return_value=None,
     )
-    assert palco_pexpect.start_interactive_session() is None
+    palco_pexpect.start_interactive_session()
     logger = logging.getLogger("pexpect")
     assert len(logger.handlers) == 0
     interact_mock.assert_called_once()
 
 
-def test_palco_pexpect_with_save_console_logs(mocker: MockerFixture, tmp_path: Path):
+def test_palco_pexpect_with_save_console_logs(tmp_path: Path):
     """Ensure palco pexpect saves console logs to the disk when enabled.
 
     :param mocker: pytest mock object
@@ -44,27 +50,18 @@ def test_palco_pexpect_with_save_console_logs(mocker: MockerFixture, tmp_path: P
     :param tmp_path: pytest temporary directory fixture
     :type tmp_path: Path
     """
-    mocker.patch.multiple(PalcoPexpect, __abstractmethods__=set())
-    bfp = PalcoPexpect("session", "pwd", save_console_logs=str(tmp_path), args=["", ""])
+    bfp = TestPalcoPexpect(
+        "session", "pwd", save_console_logs=str(tmp_path), args=["", ""]
+    )
     logger = logging.getLogger("pexpect.session")
     assert len(logger.handlers) > 0
     assert (tmp_path / "session.txt").is_file()
     assert isinstance(bfp.logfile_read, _LogWrapper)
 
 
-def test_palco_pexpect_without_save_console_logs(
-    mocker: MockerFixture,
-    tmp_path: Path,
-):
-    """Ensure palco pexpect doesn't save console logs to the disk when disabled.
-
-    :param mocker: pytest mock object
-    :type mocker: MockerFixture
-    :param tmp_path: pytest temporary directory fixture
-    :type tmp_path: Path
-    """
-    mocker.patch.multiple(PalcoPexpect, __abstractmethods__=set())
-    bfp = PalcoPexpect(
+def test_palco_pexpect_without_save_console_logs(tmp_path: Path):
+    """Ensure palco pexpect doesn't save console logs to the disk when disabled."""
+    bfp = TestPalcoPexpect(
         "session_no_save",
         "pwd",
         save_console_logs="",
@@ -82,8 +79,7 @@ def test_get_last_output(mocker: MockerFixture):
     :param mocker: pytest mock object
     :type mocker: MockerFixture
     """
-    mocker.patch.multiple(PalcoPexpect, __abstractmethods__=set())
-    bfp = PalcoPexpect("session", "pwd", save_console_logs="", args=["", ""])
+    bfp = TestPalcoPexpect("session", "pwd", save_console_logs="", args=["", ""])
     mocker.patch.object(bfp, "before", "/palco_new_repo/palco   ")
     assert bfp.get_last_output() == "/palco_new_repo/palco"
 

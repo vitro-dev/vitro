@@ -2,16 +2,18 @@
 
 from __future__ import annotations
 
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import pexpect
 
-from palco.exceptions import DeviceConnectionError
+from palco.exceptions import DeviceConnectionError, ShellPromptUndefinedError
 from palco.lib.palco_pexpect import PalcoPexpect
+
+if TYPE_CHECKING:
+    from pexpect.spawnbase import _InputRePattern
 
 _CONNECTION_ERROR_THRESHOLD = 2
 _CONNECTION_FAILED_STR: str = "Connection failed with Local Command"
-_SHELL_PROMPT_UNAVAILABLE_STR = "Shell prompt is not available"
 
 
 class LocalCmd(PalcoPexpect):
@@ -22,9 +24,9 @@ class LocalCmd(PalcoPexpect):
         name: str,
         conn_command: str,
         save_console_logs: str,
-        shell_prompt: list[str] | None = None,
+        shell_prompt: list[_InputRePattern] | None = None,
         args: list[str] | None = None,
-        **kwargs: dict[str, Any],
+        **kwargs: Any,  # noqa: ANN401
     ) -> None:
         """Initialize local command connection.
 
@@ -67,7 +69,7 @@ class LocalCmd(PalcoPexpect):
             self.sendline(password)
         # TODO: temp fix for now. To be decided if shell prompt to be used.
         if not self._shell_prompt:
-            raise ValueError(_SHELL_PROMPT_UNAVAILABLE_STR)
+            raise ShellPromptUndefinedError
         if (
             self.expect(
                 [
@@ -86,7 +88,10 @@ class LocalCmd(PalcoPexpect):
         :param command: command to execute
         :param timeout: timeout in seconds. defaults to -1
         :returns: command output
+        :raises ValueError: if shell prompt is unavailable
         """
+        if not self._shell_prompt:
+            raise ShellPromptUndefinedError
         self.sendline(command)
         self.expect_exact(command)
         self.expect(self.linesep)

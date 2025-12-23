@@ -67,7 +67,7 @@ def _ser2net_param_parser(
     return Ser2NetConnection(
         connection_name,
         "telnet",
-        kwargs.get("save_console_logs"),
+        kwargs["save_console_logs"],
         [
             kwargs["ip_addr"],
             kwargs["port"],

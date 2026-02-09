@@ -1,7 +1,7 @@
 [project]
 name = "palco"
 dynamic = ["version"]
-description = "Add your description here"
+description = "Framework to set up an environment by deploying and configuring the devices in such environment."
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
@@ -27,6 +27,8 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Programming Language :: Python",
 ]
 

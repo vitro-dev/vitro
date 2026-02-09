@@ -56,7 +56,7 @@ class SerialConnection(LocalCmd):
             # some serial commands need a terminal that is not "dumb"
             kwargs["env"] = {
                 "PATH": os.getenv("PATH"),
-                "TERM": os.getenv("TERM") if os.getenv("TERM") else "xterm",
+                "TERM": os.getenv("TERM") or "xterm",
             }
         super().__init__(
             name, conn_command, save_console_logs, shell_prompt, args, **kwargs

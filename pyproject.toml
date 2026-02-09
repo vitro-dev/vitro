@@ -122,3 +122,8 @@ dev = [
         "raise NotImplementedError",
     ]
     fail_under = 70
+
+# Ensure that we use the public Python Package Index.
+[[tool.uv.index]]
+url = "https://pypi.org/simple"
+default = true

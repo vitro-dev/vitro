@@ -52,7 +52,7 @@ no_reservation = "palco.plugins.no_reservation"
 ci = [
     "pre-commit>=4.5.1",
     "pre-commit-uv>=4.2.0",
-    "nox>=2025.11.12",
+    "nox>=2026.2.9",
 ]
 dev = [
     "covdefaults>=2.3.0",

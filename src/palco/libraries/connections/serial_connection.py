@@ -30,7 +30,7 @@ class SerialConnection(LocalCmd):
         save_console_logs: str,
         shell_prompt: list[_InputRePattern] | None = None,
         args: list[str] | None = None,
-        **kwargs: dict[str, Any],
+        **kwargs: Any,  # noqa: ANN401
     ) -> None:
         """Initialize local command serial connection.
 

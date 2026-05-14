@@ -16,13 +16,17 @@ dependencies = [
     "requests>=2.32.5",
     "rich>=14.2.0",
 ]
+license = "BSD-3-Clause"
 
 classifiers = [
     "Development Status :: 4 - Beta",
-    "Framework :: Pytest",
-    "Operating System :: Microsoft :: Windows",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: Telecommunications Industry",
     "Operating System :: OS Independent",
-    "Operating System :: POSIX :: Linux",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX",
     "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
@@ -30,6 +34,11 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
     "Programming Language :: Python",
+    "Topic :: Software Development :: Embedded Systems",
+    "Topic :: Software Development :: Quality Assurance",
+    "Topic :: Software Development :: Testing",
+    "Topic :: Software Development :: Testing :: Acceptance",
+    "Typing :: Typed",
 ]
 
 [project.scripts]
@@ -40,13 +49,19 @@ core = "palco.plugins.core"
 booting = "palco.plugins.setup_environment"
 no_reservation = "palco.plugins.no_reservation"
 
+[project.urls]
+Homepage = "https://github.com/karrukola/palco"
+Repository = "https://github.com/karrukola/palco"
+Issues = "https://github.com/karrukola/palco/issues"
+
 [build-system]
     build-backend = "setuptools.build_meta"
-    requires      = ["setuptools", "setuptools-scm"]
+    requires      = ["setuptools>=77.0.3", "setuptools-scm>=10.0.5"]
 
 [tool.setuptools_scm]
-    version_scheme = "no-guess-dev"
-
+# Fail on dirty trees and strip local version — recommended for release CI
+# TODO: move to no-local-version-strict once released
+local_scheme = "no-local-version"
 
 [dependency-groups]
 ci = [

@@ -1,12 +1,12 @@
-"""Unit tests for the Palco connection factory module."""
+"""Unit tests for the Vitro connection factory module."""
 
 import pytest
 from pytest_mock import MockerFixture
 
-from palco.exceptions import EnvConfigError
-from palco.libraries.connection_factory import connection_factory
-from palco.libraries.connections.ssh_connection import SSHConnection
-from palco.libraries.palco_pexpect import PalcoPexpect
+from vitro.exceptions import EnvConfigError
+from vitro.libraries.connection_factory import connection_factory
+from vitro.libraries.connections.ssh_connection import SSHConnection
+from vitro.libraries.vitro_pexpect import VitroPexpect
 
 
 def test_connection_factory_invalid_connection_type() -> None:
@@ -24,8 +24,8 @@ def test_connection_factory_valid_connection_type(mocker: MockerFixture) -> None
     :param mocker: pytest mock object
     :type mocker: MockerFixture
     """
-    mocker.patch.object(PalcoPexpect, attribute="__init__", return_value=None)
-    mocker.patch.multiple(PalcoPexpect, __abstractmethods__=set())
+    mocker.patch.object(VitroPexpect, attribute="__init__", return_value=None)
+    mocker.patch.multiple(VitroPexpect, __abstractmethods__=set())
     mocker.patch.object(SSHConnection, attribute="__init__", return_value=None)
     connection = connection_factory(
         "ssh_connection",

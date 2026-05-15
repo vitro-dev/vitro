@@ -10,7 +10,7 @@ from typing import TYPE_CHECKING, TypeVar
 import pytest
 from netaddr.core import AddrFormatError
 
-from palco.libraries.utils import (
+from vitro.libraries.utils import (
     IPAddressType,
     disable_logs,
     get_nth_mac_address,

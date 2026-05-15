@@ -1,17 +1,17 @@
-"""Unit tests for the Palco device manager module."""
+"""Unit tests for the Vitro device manager module."""
 
 import re
 from argparse import Namespace
 
 import pytest
 
-from palco.devices.base_devices import PalcoDevice
-from palco.libraries.device_manager import DeviceManager, get_device_manager
-from palco.main import get_plugin_manager
+from vitro.devices.base_devices import VitroDevice
+from vitro.libraries.device_manager import DeviceManager, get_device_manager
+from vitro.main import get_plugin_manager
 
 
-class DummyDevice(PalcoDevice):
-    """Dummy Palco Device class for testing."""
+class DummyDevice(VitroDevice):
+    """Dummy Vitro Device class for testing."""
 
 
 class InvalidDevice:
@@ -52,7 +52,7 @@ def test_device_manager_singleton(device_manager: DeviceManager) -> None:
         DeviceManager(get_plugin_manager())
 
 
-def test_register_device_valid_palco_device(device_manager: DeviceManager) -> None:
+def test_register_device_valid_vitro_device(device_manager: DeviceManager) -> None:
     """Verify a new device is registered successfully.
 
     :param device_manager: device manager instance
@@ -66,7 +66,7 @@ def test_register_device_valid_palco_device(device_manager: DeviceManager) -> No
 def test_register_device_invalid_device_attribute_error(
     device_manager: DeviceManager,
 ) -> None:
-    """Ensure error is raised when try to register a non PalcoDevice.
+    """Ensure error is raised when try to register a non VitroDevice.
 
     :param device_manager: device manager instance
     :type device_manager: DeviceManager

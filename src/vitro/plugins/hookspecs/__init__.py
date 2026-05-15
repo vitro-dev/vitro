@@ -1,0 +1,1 @@
+"""Vitro plugin hookspecs."""

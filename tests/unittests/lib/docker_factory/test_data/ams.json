@@ -82,9 +82,9 @@
                 "type": "debian-isc-provisioner"
             },
             {
-                "acs_mib": "http://acs_server.palco.com:9675",
+                "acs_mib": "http://acs_server.vitro.com:9675",
                 "aux_ip": "wan-static-ip:172.25.2.40, wan-static-ipv6:2001:dead:beef:3::40/64",
-                "aux_url": "acs.palco.com",
+                "aux_url": "acs.vitro.com",
                 "color": "blue",
                 "connection_type": "authenticated_ssh",
                 "http_password": "bigfoot1",

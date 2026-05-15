@@ -1,5 +1,5 @@
 [project]
-name = "palco"
+name = "vitro"
 dynamic = ["version"]
 description = "Framework to set up an environment by deploying and configuring the devices in such environment."
 readme = "README.md"
@@ -42,17 +42,17 @@ classifiers = [
 ]
 
 [project.scripts]
-palco = "palco.main:main"
+vitro = "vitro.main:main"
 
-[project.entry-points."palco"]
-core = "palco.plugins.core"
-booting = "palco.plugins.setup_environment"
-no_reservation = "palco.plugins.no_reservation"
+[project.entry-points."vitro"]
+core = "vitro.plugins.core"
+booting = "vitro.plugins.setup_environment"
+no_reservation = "vitro.plugins.no_reservation"
 
 [project.urls]
-Homepage = "https://github.com/karrukola/palco"
-Repository = "https://github.com/karrukola/palco"
-Issues = "https://github.com/karrukola/palco/issues"
+Homepage = "https://github.com/vitro-dev/vitro"
+Repository = "https://github.com/vitro-dev/vitro"
+Issues = "https://github.com/vitro-dev/vitro/issues"
 
 [build-system]
     build-backend = "setuptools.build_meta"

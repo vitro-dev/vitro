@@ -6,11 +6,11 @@ from json import loads
 from pathlib import Path
 
 import pytest
+from vitro.libraries.vitro_config import get_json, parse_vitro_config
 
-from palco.libraries.docker_factory.docker_compose_generator import (
+from vitro.libraries.docker_factory.docker_compose_generator import (
     DockerComposeGenerator,
 )
-from palco.libraries.palco_config import get_json, parse_palco_config
 
 _TEST_DATA_DIR = Path(__file__).parent / "test_data"
 
@@ -21,11 +21,11 @@ def fixture_template_manager() -> DockerComposeGenerator:
     ams_path = _TEST_DATA_DIR / "ams.json"
     environment_json_path = _TEST_DATA_DIR / "test_environment.json"
     inventory_json = loads(ams_path.read_text())
-    palco_config = parse_palco_config(
+    vitro_config = parse_vitro_config(
         inventory_json["F5685LGE-1-1"],
         get_json(environment_json_path.as_posix()),
     )
-    return DockerComposeGenerator(palco_config)
+    return DockerComposeGenerator(vitro_config)
 
 
 def test_docker_compose_generator(template_manager: DockerComposeGenerator) -> None:

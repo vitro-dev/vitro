@@ -6,11 +6,11 @@ from json import loads
 from pathlib import Path
 
 import pytest
-from vitro.libraries.vitro_config import get_json, parse_vitro_config
 
 from vitro.libraries.docker_factory.docker_compose_generator import (
     DockerComposeGenerator,
 )
+from vitro.libraries.vitro_config import get_json, parse_vitro_config
 
 _TEST_DATA_DIR = Path(__file__).parent / "test_data"
 

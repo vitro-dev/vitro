@@ -9,14 +9,14 @@ from typing import Any, cast
 import pytest
 import requests
 from pytest_mock import MockerFixture
+
+from vitro.exceptions import EnvConfigError
 from vitro.libraries.vitro_config import (
     VitroConfig,
     get_inventory_config,
     get_json,
     parse_vitro_config,
 )
-
-from vitro.exceptions import EnvConfigError
 
 _TEST_DATA_PATH = Path(__file__).parent.parent / "testdata"
 

@@ -1,9 +1,14 @@
 """Vitro base device template."""
 
-from argparse import Namespace
+from __future__ import annotations
 
-from vitro.libraries.vitro_pexpect import VitroPexpect
-from vitro.type_hints import DeviceConfigType
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from argparse import Namespace
+
+    from vitro.libraries.vitro_pexpect import VitroPexpect
+    from vitro.type_hints import DeviceConfigType
 
 
 class VitroDevice:

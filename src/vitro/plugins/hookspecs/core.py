@@ -1,15 +1,20 @@
 # mypy: disable-error-code="empty-body"
 """Vitro main hook specifications."""
 
-from argparse import ArgumentParser, Namespace
-from typing import Any
+from __future__ import annotations
 
-from pluggy import PluginManager
+from typing import TYPE_CHECKING, Any
 
 from vitro import hookspec
-from vitro.devices.base_devices import VitroDevice
-from vitro.libraries.device_manager import DeviceManager
-from vitro.libraries.vitro_config import VitroConfig
+
+if TYPE_CHECKING:
+    from argparse import ArgumentParser, Namespace
+
+    from pluggy import PluginManager
+
+    from vitro.devices.base_devices import VitroDevice
+    from vitro.libraries.device_manager import DeviceManager
+    from vitro.libraries.vitro_config import VitroConfig
 
 # pylint: disable=unused-argument
 

@@ -1,5 +1,7 @@
 """Vitro main module."""
 
+from __future__ import annotations
+
 import asyncio
 import logging.config
 import sys

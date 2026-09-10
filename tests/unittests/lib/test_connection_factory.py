@@ -1,12 +1,18 @@
 """Unit tests for the Vitro connection factory module."""
 
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 import pytest
-from pytest_mock import MockerFixture
 
 from vitro.exceptions import EnvConfigError
 from vitro.libraries.connection_factory import connection_factory
 from vitro.libraries.connections.ssh_connection import SSHConnection
 from vitro.libraries.vitro_pexpect import VitroPexpect
+
+if TYPE_CHECKING:
+    from pytest_mock import MockerFixture
 
 
 def test_connection_factory_invalid_connection_type() -> None:

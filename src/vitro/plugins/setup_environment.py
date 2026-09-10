@@ -1,18 +1,24 @@
 """Vitro environment setup plugin."""
 
+from __future__ import annotations
+
 import asyncio
 import logging
 import time
-from argparse import Namespace
 from sys import version_info
-
-from pluggy import PluginManager
+from typing import TYPE_CHECKING
 
 from vitro import hookimpl
 from vitro.devices.base_devices.vitro_device import VitroDevice
-from vitro.libraries.device_manager import DeviceManager
 from vitro.libraries.interactive_shell import get_interactive_console_options
-from vitro.libraries.vitro_config import VitroConfig
+
+if TYPE_CHECKING:
+    from argparse import Namespace
+
+    from pluggy import PluginManager
+
+    from vitro.libraries.device_manager import DeviceManager
+    from vitro.libraries.vitro_config import VitroConfig
 
 IS_TASKGROUP_AVAILABLE = version_info >= (3, 11)
 _LOGGER = logging.getLogger(__name__)

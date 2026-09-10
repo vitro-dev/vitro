@@ -1,5 +1,7 @@
 """Unit tests for the Vitro device manager module."""
 
+from __future__ import annotations
+
 import re
 from argparse import Namespace
 

@@ -1,6 +1,8 @@
 """Connection decider module."""
 
-from typing import Any
+from __future__ import annotations
+
+from typing import TYPE_CHECKING, Any
 
 from vitro.exceptions import EnvConfigError
 from vitro.libraries.connections.ldap_authenticated_serial import (
@@ -11,7 +13,9 @@ from vitro.libraries.connections.ser2net_connection import Ser2NetConnection
 from vitro.libraries.connections.serial_connection import SerialConnection
 from vitro.libraries.connections.ssh_connection import SSHConnection
 from vitro.libraries.connections.telnet import TelnetConnection
-from vitro.libraries.vitro_pexpect import VitroPexpect
+
+if TYPE_CHECKING:
+    from vitro.libraries.vitro_pexpect import VitroPexpect
 
 
 def connection_factory(

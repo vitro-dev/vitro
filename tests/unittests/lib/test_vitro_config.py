@@ -1,14 +1,15 @@
 """Unit tests for the Vitro environment config module."""
 
+from __future__ import annotations
+
 import copy
 import json
 import re
 from pathlib import Path
-from typing import Any, cast
+from typing import TYPE_CHECKING, Any, cast
 
 import pytest
 import requests
-from pytest_mock import MockerFixture
 
 from vitro.exceptions import EnvConfigError
 from vitro.libraries.vitro_config import (
@@ -17,6 +18,9 @@ from vitro.libraries.vitro_config import (
     get_json,
     parse_vitro_config,
 )
+
+if TYPE_CHECKING:
+    from pytest_mock import MockerFixture
 
 _TEST_DATA_PATH = Path(__file__).parent.parent / "testdata"
 

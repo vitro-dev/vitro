@@ -1,10 +1,14 @@
 """Connect and run module."""
 
-from collections.abc import Callable
+from __future__ import annotations
+
 from time import sleep
-from typing import ParamSpec, Protocol, TypeVar, runtime_checkable
+from typing import TYPE_CHECKING, ParamSpec, Protocol, TypeVar, runtime_checkable
 
 from vitro.exceptions import DeviceConnectionError
+
+if TYPE_CHECKING:
+    from collections.abc import Callable
 
 P = ParamSpec("P")
 T = TypeVar("T")

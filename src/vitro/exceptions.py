@@ -1,5 +1,7 @@
 """Vitro exceptions for all plugins and modules used by framework."""
 
+from __future__ import annotations
+
 from typing import Any
 
 

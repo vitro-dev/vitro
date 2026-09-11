@@ -1,14 +1,20 @@
 """Unit tests for vitro pexpect module."""
 
+from __future__ import annotations
+
 import logging
 from io import StringIO
-from pathlib import Path
+from typing import TYPE_CHECKING
 
 import pexpect
 import pytest
-from pytest_mock import MockerFixture
 
 from vitro.libraries.vitro_pexpect import VitroPexpect, _LogWrapper
+
+if TYPE_CHECKING:
+    from pathlib import Path
+
+    from pytest_mock import MockerFixture
 
 
 class TestVitroPexpect(VitroPexpect):

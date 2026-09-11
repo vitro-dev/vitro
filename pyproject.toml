@@ -108,6 +108,9 @@ dev = [
             "F401", # we must know why we are not using the imported module
         ]
 
+        [tool.ruff.lint.isort]
+            required-imports = ["from __future__ import annotations"]
+
         [tool.ruff.lint.per-file-ignores]
             "tests/*" = [
                 "S101", # pytest works with assert

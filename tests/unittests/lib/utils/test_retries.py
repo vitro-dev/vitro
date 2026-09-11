@@ -2,10 +2,16 @@
 
 # pylint: disable=missing-docstring
 
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 import pytest
-from pytest_mock import MockerFixture
 
 from vitro.libraries.utils import retry, retry_on_exception
+
+if TYPE_CHECKING:
+    from pytest_mock import MockerFixture
 
 
 class HelperMethods:

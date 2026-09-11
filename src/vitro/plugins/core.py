@@ -1,19 +1,24 @@
 """Vitro core plugin."""
 
+from __future__ import annotations
+
 import logging
 from argparse import ArgumentParser, ArgumentTypeError, Namespace
 from collections import ChainMap
-from collections.abc import Generator
-from typing import Any
-
-from pluggy import PluginManager
+from typing import TYPE_CHECKING, Any
 
 from vitro import hookimpl
-from vitro.devices.base_devices import VitroDevice
 from vitro.exceptions import EnvConfigError
 from vitro.libraries.device_manager import DeviceManager
 from vitro.libraries.vitro_config import VitroConfig, parse_vitro_config
 from vitro.plugins.hookspecs import devices as device_spec
+
+if TYPE_CHECKING:
+    from collections.abc import Generator
+
+    from pluggy import PluginManager
+
+    from vitro.devices.base_devices import VitroDevice
 
 _LOGGER = logging.getLogger(__name__)
 

@@ -1,10 +1,14 @@
 """Vitro plugin to support parsing the config files passed as arguments."""
 
-from argparse import Namespace
-from typing import Any
+from __future__ import annotations
+
+from typing import TYPE_CHECKING, Any
 
 from vitro import hookimpl
 from vitro.libraries.vitro_config import get_inventory_config
+
+if TYPE_CHECKING:
+    from argparse import Namespace
 
 
 @hookimpl

@@ -1,5 +1,7 @@
 """Automated testing of network devices."""
 
+from __future__ import annotations
+
 __version__ = "2025.12.17a0"
 
 from pluggy import HookimplMarker, HookspecMarker

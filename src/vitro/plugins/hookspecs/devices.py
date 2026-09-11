@@ -32,12 +32,17 @@ Hook responsibilities:
           is made and no IP address on service interface is assigned
 """
 
-from argparse import Namespace
-from typing import Any
+from __future__ import annotations
+
+from typing import TYPE_CHECKING, Any
 
 from vitro import hookspec
-from vitro.libraries.device_manager import DeviceManager
-from vitro.libraries.vitro_config import VitroConfig
+
+if TYPE_CHECKING:
+    from argparse import Namespace
+
+    from vitro.libraries.device_manager import DeviceManager
+    from vitro.libraries.vitro_config import VitroConfig
 
 # pylint: disable=unused-argument
 

@@ -59,9 +59,7 @@ Issues = "https://github.com/vitro-dev/vitro/issues"
     requires      = ["setuptools>=77.0.3", "setuptools-scm>=10.0.5"]
 
 [tool.setuptools_scm]
-# Fail on dirty trees and strip local version — recommended for release CI
-# TODO: move to no-local-version-strict once released
-local_scheme = "no-local-version"
+# the release CI overrides local_scheme via SETUPTOOLS_SCM_OVERRIDES_FOR_VITRO
 
 [dependency-groups]
 ci = [
